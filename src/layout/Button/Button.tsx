@@ -15,7 +15,7 @@ const Button = <T extends ElementType = "button">({
   return (
     <button
       {...rest}
-      className={`${cssClassName} bg-orange hover:bg-orangeHover py-[9px] px-4
+      className={` ${cssClassName} bg-orange hover:bg-orangeHover 
        text-100 rounded text-headingM font-roboto`}
     >
       {children}
