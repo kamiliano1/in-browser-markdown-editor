@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,13 +9,87 @@ import Button from "../Button/Button";
 import { LuSave } from "react-icons/lu";
 import useWindowWith from "../../hooks/useWindowWidth";
 import logo from "../../../public/logo.svg";
+
+import { CiFileOn } from "react-icons/ci";
+import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 type NavbarProps = {};
+
+type MarkdownFileType = {
+  name: string;
+  date: string;
+};
+
+const files = [
+  {
+    name: "untitled-document.md",
+    date: "01 April 2022",
+  },
+  { name: "welcome.md", date: "01 April 2022" },
+];
+
+const MarkdownFile: React.FC<MarkdownFileType> = ({ name, date }) => {
+  return (
+    <NavigationMenu.Item className=" w-full font-roboto mb-6">
+      <NavigationMenu.Trigger
+        title={name}
+        className="grid grid-rows-2 grid-cols-[16px,_auto] gap-x-4 items-center"
+      >
+        <CiFileOn className="row-span-2" />
+        <p className="text-start text-bodyM text-500 mb-1">{date}</p>
+        <p className="text-headingM">{name}</p>
+      </NavigationMenu.Trigger>
+    </NavigationMenu.Item>
+  );
+};
+
+type toggleSwitchType = {
+  e: HTMLButtonElement;
+};
 
 const Navbar: React.FC<NavbarProps> = () => {
   const windowWidth = useWindowWith();
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  const toggleSwitch = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+    const key = e.key;
+    if (key === "Enter") setIsDarkMode((prev) => !prev);
+  };
+
   return (
-    <NavigationMenu.Root className=" bg-800 text-100">
-      <NavigationMenu.List className="flex items-center pr-2 sm:pr-4 justify-between">
+    <NavigationMenu.Root
+      orientation="vertical"
+      className="bg-800 text-100 fixed w-full grid grid-cols-[250px,_auto] grid-rows-[56px,1fr]"
+    >
+      <NavigationMenu.List className="w-[250px] h-[100vh] bg-900 px-6 py-7 flex flex-col">
+        <Image src={logo} alt="web logo" />
+        <h3 className="text-headingS uppercase text-500 py-7 font-roboto">
+          My Documents
+        </h3>
+        <NavigationMenu.Item>
+          <NavigationMenu.Trigger
+            title="new document"
+            className="bg-orange hover:bg-orangeHover w-full py-3 mb-6
+       text-100 rounded text-headingM font-roboto flex justify-center items-center"
+          >
+            + New Document
+          </NavigationMenu.Trigger>
+        </NavigationMenu.Item>
+        {files.map((item) => (
+          <MarkdownFile key={item.name} name={item.name} date={item.date} />
+        ))}
+        <NavigationMenu.Item className="mt-auto">
+          <NavigationMenu.Trigger
+            title="theme switch"
+            onKeyDown={(e) => toggleSwitch(e)}
+          >
+            <ThemeSwitch
+              isDarkMode={isDarkMode}
+              setIsDarkMode={setIsDarkMode}
+            />
+          </NavigationMenu.Trigger>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+      <NavigationMenu.List className="flex items-center pr-2 sm:pr-4 justify-between h-[56px] sm:h-[76px]">
         <NavigationMenu.Item className="flex items-center justify-center bg-700 h-[56px] sm:h-[76px] aspect-square mr-6">
           <NavigationMenu.Trigger title="toggle sidebar">
             <IoMenuOutline className="text-previewH1 sm:text-[3rem]" />

@@ -1,19 +1,26 @@
 import * as Switch from "@radix-ui/react-switch";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { BiSun } from "react-icons/bi";
 import { IoMoonOutline } from "react-icons/io5";
-type ThemeSwitchProps = {};
+type ThemeSwitchProps = {
+  isDarkMode: boolean;
+  setIsDarkMode: Dispatch<SetStateAction<boolean>>;
+};
 
-const ThemeSwitch: React.FC<ThemeSwitchProps> = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+const ThemeSwitch: React.FC<ThemeSwitchProps> = ({
+  isDarkMode,
+  setIsDarkMode,
+}) => {
   return (
     <div
-      className={`flex items-center justify-end cursor-pointer h-[24px] w-min ml-auto bg-300
+      className={`flex items-center justify-end  h-[24px] w-min 
           `}
     >
       <label htmlFor="theme-switcher">
         <IoMoonOutline
-          className={`text-[1rem] ${!isDarkMode ? "text-100" : "text-600"}`}
+          className={`text-[1rem] cursor-pointer ${
+            !isDarkMode ? "text-100" : "text-600"
+          }`}
         />
       </label>
       <Switch.Root
@@ -27,7 +34,9 @@ const ThemeSwitch: React.FC<ThemeSwitchProps> = () => {
       </Switch.Root>
       <label htmlFor="theme-switcher">
         <BiSun
-          className={`text-[1.125rem] ${isDarkMode ? "text-100" : "text-600"}`}
+          className={`text-[1.125rem] cursor-pointer ${
+            isDarkMode ? "text-100" : "text-600"
+          }`}
         />
       </label>
     </div>
