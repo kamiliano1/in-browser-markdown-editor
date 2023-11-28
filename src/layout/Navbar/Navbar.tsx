@@ -42,23 +42,14 @@ const MarkdownFile: React.FC<MarkdownFileType> = ({ name, date }) => {
   );
 };
 
-type toggleSwitchType = {
-  e: HTMLButtonElement;
-};
-
 const Navbar: React.FC<NavbarProps> = () => {
   const windowWidth = useWindowWith();
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  const toggleSwitch = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-    const key = e.key;
-    if (key === "Enter") setIsDarkMode((prev) => !prev);
-  };
-
   return (
     <NavigationMenu.Root
       orientation="vertical"
-      className="bg-800 text-100 fixed w-full grid grid-cols-[250px,_auto] grid-rows-[56px,1fr]"
+      className="bg-800 text-100 fixed w-full grid grid-cols-[250px,calc(100vw-_250px)] grid-rows-[56px,1fr] sm:grid-rows-[76px,1fr]"
     >
       <NavigationMenu.List className="w-[250px] h-[100vh] bg-900 px-6 py-7 flex flex-col">
         <Image src={logo} alt="web logo" />
@@ -68,7 +59,7 @@ const Navbar: React.FC<NavbarProps> = () => {
         <NavigationMenu.Item>
           <NavigationMenu.Trigger
             title="new document"
-            className="bg-orange hover:bg-orangeHover w-full py-3 mb-6
+            className="bg-orange hover:bg-orangeHover w-full py-2.5 mb-6
        text-100 rounded text-headingM font-roboto flex justify-center items-center"
           >
             + New Document
@@ -78,15 +69,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           <MarkdownFile key={item.name} name={item.name} date={item.date} />
         ))}
         <NavigationMenu.Item className="mt-auto">
-          <NavigationMenu.Trigger
-            title="theme switch"
-            onKeyDown={(e) => toggleSwitch(e)}
-          >
-            <ThemeSwitch
-              isDarkMode={isDarkMode}
-              setIsDarkMode={setIsDarkMode}
-            />
-          </NavigationMenu.Trigger>
+          <ThemeSwitch isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
         </NavigationMenu.Item>
       </NavigationMenu.List>
       <NavigationMenu.List className="flex items-center pr-2 sm:pr-4 justify-between h-[56px] sm:h-[76px]">

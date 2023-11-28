@@ -114,7 +114,60 @@ const config: Config = {
         },
       ],
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        closeIconAfter: {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(45deg)" },
+        },
+        closeIcon: {
+          from: { opacity: "1" },
+          to: { opacity: "0" },
+        },
+        closeIconBefore: {
+          from: { transform: "rotate(0deg) translateY(0)" },
+          to: {
+            transform: "translateY(-10px) rotate(-45deg) ",
+          },
+        },
+        openIcon: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        openIconAfter: {
+          from: { transform: "rotate(45deg)" },
+          to: { transform: "rotate(0deg)" },
+        },
+        openIconBefore: {
+          from: {
+            transform: "translateY(-10px) rotate(-45deg) ",
+          },
+          to: { transform: "rotate(0deg) translateY(0)" },
+        },
+
+        sliderOpen: {
+          from: { transform: "translateX(-100%)" },
+          to: { transform: "translateX(0)" },
+        },
+        sliderClose: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-100%)" },
+        },
+      },
+      animation: {
+        closeIcon: "closeIcon 250ms cubic-bezier(0.4, 0, 0.6, 1)",
+        closeIconAfter: "closeIconAfter 550ms cubic-bezier(0.4, 0, 0.6, 1)",
+        closeIconBefore: "closeIconBefore 550ms cubic-bezier(0.4, 0, 0.6, 1)",
+        openIcon: "openIcon 250ms cubic-bezier(0.4, 0, 0.6, 1)",
+        openIconAfter: "openIconAfter 550ms cubic-bezier(0.4, 0, 0.6, 1)",
+        openIconBefore: "openIconBefore 550ms cubic-bezier(0.4, 0, 0.6, 1)",
+        // closeIconAfter: "closeIconAfter 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        // openIcon: "openIcon 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        // openIcon: "openIcon 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        sliderOpen: "sliderOpen 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
+        sliderClose: "sliderClose 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
+      },
+    },
   },
   plugins: [],
 };
