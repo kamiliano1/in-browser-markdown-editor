@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,7 +12,11 @@ import logo from "../../../public/logo.svg";
 
 import { CiFileOn } from "react-icons/ci";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
-type NavbarProps = {};
+import HamburgerIcon from "./HamburgerIcon";
+type NavbarProps = {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+};
 
 type MarkdownFileType = {
   name: string;
@@ -42,25 +46,28 @@ const MarkdownFile: React.FC<MarkdownFileType> = ({ name, date }) => {
   );
 };
 
-const Navbar: React.FC<NavbarProps> = () => {
+const Navbar: React.FC<NavbarProps> = ({ open, setOpen }) => {
   const windowWidth = useWindowWith();
   const [isDarkMode, setIsDarkMode] = useState(false);
-
   return (
     <NavigationMenu.Root
       orientation="vertical"
-      className="bg-800 text-100 fixed w-full grid grid-cols-[250px,calc(100vw-_250px)] grid-rows-[56px,1fr] sm:grid-rows-[76px,1fr]"
+      className={`text-100 fixed w-full grid
+      grid-cols-[250px,_100vw]
+      grid-rows-[56px,1fr] sm:grid-rows-[72px,1fr] ${
+        open ? "animate-sliderClose" : "-translate-x-[250px] animate-sliderOpen"
+      }`}
     >
       <NavigationMenu.List className="w-[250px] h-[100vh] bg-900 px-6 py-7 flex flex-col">
-        <Image src={logo} alt="web logo" />
-        <h3 className="text-headingS uppercase text-500 py-7 font-roboto">
+        <Image src={logo} alt="web logo" className="lg:hidden" />
+        <h3 className="text-headingS uppercase text-500 py-7 lg:pt-0 font-roboto">
           My Documents
         </h3>
         <NavigationMenu.Item>
           <NavigationMenu.Trigger
             title="new document"
             className="bg-orange hover:bg-orangeHover w-full py-2.5 mb-6
-       text-100 rounded text-headingM font-roboto flex justify-center items-center"
+           text-100 rounded text-headingM font-roboto flex justify-center items-center"
           >
             + New Document
           </NavigationMenu.Trigger>
@@ -72,10 +79,10 @@ const Navbar: React.FC<NavbarProps> = () => {
           <ThemeSwitch isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
         </NavigationMenu.Item>
       </NavigationMenu.List>
-      <NavigationMenu.List className="flex items-center pr-2 sm:pr-4 justify-between h-[56px] sm:h-[76px]">
-        <NavigationMenu.Item className="flex items-center justify-center bg-700 h-[56px] sm:h-[76px] aspect-square mr-6">
+      <NavigationMenu.List className="flex items-center pr-2 sm:pr-4 justify-between h-[56px] sm:h-[72px] bg-800">
+        <NavigationMenu.Item className="flex items-center justify-center bg-700 h-[56px] sm:h-[72px] aspect-square mr-6">
           <NavigationMenu.Trigger title="toggle sidebar">
-            <IoMenuOutline className="text-previewH1 sm:text-[3rem]" />
+            <HamburgerIcon open={open} setOpen={setOpen} />
           </NavigationMenu.Trigger>
         </NavigationMenu.Item>
         <Image src={logo} alt="web logo" className="hidden lg:block" />
@@ -94,7 +101,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           <NavigationMenu.Trigger
             title="save changes"
             className="bg-orange hover:bg-orangeHover 
-       text-100 rounded text-headingM font-roboto h-10 w-10 sm:w-auto sm:px-4 flex justify-center items-center"
+           text-100 rounded text-headingM font-roboto h-10 w-10 sm:w-auto sm:px-4 flex justify-center items-center"
           >
             <LuSave className="text-[1.3rem] sm:mr-2" />
             {windowWidth > 768 && "Save changes"}

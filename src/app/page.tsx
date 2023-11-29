@@ -5,47 +5,25 @@ import ThemeSwitch from "../layout/ThemeSwitch/ThemeSwitch";
 import InputText from "../layout/InputText/InputText";
 import Navbar from "../layout/Navbar/Navbar";
 import { useState } from "react";
+import HamburgerIcon from "@/layout/Navbar/HamburgerIcon";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
   return (
-    <main className="p-5">
-      <button className="bg-100" onClick={() => setOpen((prev) => !prev)}>
-        Zmiana
-      </button>
+    <main className="">
       {/* <Button>Test</Button> */}
       {/* <ThemeSwitch /> */}
       {/* <InputText /> */}
-      {/* <Navbar /> */}
-      <div className="bg-600 m-5 relative w-[30px] flex flex-col gap-[4px]">
-        <span
-          className={`w-full h-[1.53px] bg-300 ${
-            open ? "animate-closeIconAfter rotate-45" : "animate-openIconAfter"
-          }`}
-        ></span>
-        <span
-          className={`w-full h-[1.53px] bg-300 ${
-            open ? "animate-closeIcon opacity-0" : "animate-openIcon"
-          }`}
-        ></span>
-        <span
-          className={`w-full h-[1.53px] bg-300 ${
-            open
-              ? "animate-closeIconBefore rotate-[-45deg] -translate-y-[10px]"
-              : "animate-openIconBefore"
-          }`}
-        ></span>
+      <Navbar open={open} setOpen={setOpen} />
+      <div className={`relative z-[-1] w-full h-[100vh] bg-500`}>
+        <div
+          className={`absolute top-0 left-0 z-[20] pt-[56px] sm:pt-[72px] 
+          ${open && " translate-x-[250px] "}
+          `}
+        >
+          <h2 className="">aaaaaaaaaa</h2>
+        </div>
       </div>
     </main>
   );
 }
-
-// ${
-//   open
-//     ? "after:animate-closeIconAfter before:animate-closeIconBefore before:rotate-45 after:rotate-[-45deg] "
-//     : ""
-// }
-// top: 0.25em;
-//   width: 1em;
-
-// after:animate-closeIconAfter before:animate-closeIconBefore after:rotate-45 before:rotate-[135deg] before:translate-y-[-10px] "

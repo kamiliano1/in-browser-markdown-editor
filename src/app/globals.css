@@ -5,10 +5,3 @@
 html {
   background-color: black;
 }
-
-.line::after {
-  transform: rotate(45deg);
-}
-.line::before {
-  transform: rotate(-45deg);
-}
