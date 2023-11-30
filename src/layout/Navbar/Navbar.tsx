@@ -13,10 +13,6 @@ import logo from "../../../public/logo.svg";
 import { CiFileOn } from "react-icons/ci";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import HamburgerIcon from "./HamburgerIcon";
-type NavbarProps = {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
 
 type MarkdownFileType = {
   name: string;
@@ -46,15 +42,27 @@ const MarkdownFile: React.FC<MarkdownFileType> = ({ name, date }) => {
   );
 };
 
-const Navbar: React.FC<NavbarProps> = ({ open, setOpen }) => {
+type NavbarProps = {
+  open: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  isDarkMode: boolean;
+  setIsDarkMode: Dispatch<SetStateAction<boolean>>;
+};
+
+const Navbar: React.FC<NavbarProps> = ({
+  open,
+  setOpen,
+  isDarkMode,
+  setIsDarkMode,
+}) => {
   const windowWidth = useWindowWith();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+
   return (
     <NavigationMenu.Root
       orientation="vertical"
       className={`text-100 fixed w-full grid
       grid-cols-[250px,_100vw]
-      grid-rows-[56px,1fr] sm:grid-rows-[72px,1fr] ${
+      grid-rows-[56px,1fr] sm:grid-rows-[72px,1fr] z-[5] ${
         open ? "animate-sliderClose" : "-translate-x-[250px] animate-sliderOpen"
       }`}
     >

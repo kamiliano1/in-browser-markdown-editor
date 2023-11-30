@@ -153,6 +153,14 @@ const config: Config = {
           from: { transform: "translateX(-250px)" },
           to: { transform: "translateX(0)" },
         },
+        markdownOpen: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(250px)" },
+        },
+        markdownClose: {
+          from: { transform: "translateX(250px)" },
+          to: { transform: "translateX(0)" },
+        },
       },
       animation: {
         closeIcon: "closeIcon 250ms cubic-bezier(0.4, 0, 0.6, 1)",
@@ -163,6 +171,8 @@ const config: Config = {
         openIconBefore: "openIconBefore 550ms cubic-bezier(0.4, 0, 0.6, 1)",
         sliderOpen: "sliderOpen 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
         sliderClose: "sliderClose 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
+        markdownOpen: "markdownOpen 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
+        markdownClose: "markdownClose 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },
