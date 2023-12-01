@@ -1,41 +1,46 @@
-import React, { Dispatch, SetStateAction, useState } from "react";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import Image from "next/image";
-import Link from "next/link";
-import { IoMenuOutline } from "react-icons/io5";
+import React, { Dispatch, SetStateAction } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
-import InputText from "../InputText/InputText";
-import Button from "../Button/Button";
 import { LuSave } from "react-icons/lu";
-import useWindowWith from "../../hooks/useWindowWidth";
 import logo from "../../../public/logo.svg";
-
+import useWindowWith from "../../hooks/useWindowWidth";
+import InputText from "../InputText/InputText";
+import { MarkdownDataType } from "@/app/page";
 import { CiFileOn } from "react-icons/ci";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import HamburgerIcon from "./HamburgerIcon";
 
 type MarkdownFileType = {
-  name: string;
-  date: string;
+  data: MarkdownDataType;
+  setMarkdownData: Dispatch<SetStateAction<MarkdownDataType[]>>;
 };
 
-const files = [
-  {
-    name: "untitled-document.md",
-    date: "01 April 2022",
-  },
-  { name: "welcome.md", date: "01 April 2022" },
-];
-
-const MarkdownFile: React.FC<MarkdownFileType> = ({ name, date }) => {
+const MarkdownFile: React.FC<MarkdownFileType> = ({
+  data,
+  setMarkdownData,
+}) => {
+  const { name, createdAt, id } = data;
+  const activateMarkdown = () => {
+    setMarkdownData((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? { ...item, isActivated: true }
+          : { ...item, isActivated: false }
+      )
+    );
+  };
   return (
-    <NavigationMenu.Item className=" w-full font-roboto mb-6">
+    <NavigationMenu.Item
+      className=" w-full font-roboto mb-6"
+      onClick={activateMarkdown}
+    >
       <NavigationMenu.Trigger
         title={name}
         className="grid grid-rows-2 grid-cols-[16px,_auto] gap-x-4 items-center"
       >
         <CiFileOn className="row-span-2" />
-        <p className="text-start text-bodyM text-500 mb-1">{date}</p>
+        <p className="text-start text-bodyM text-500 mb-1">{createdAt}</p>
         <p className="text-headingM">{name}</p>
       </NavigationMenu.Trigger>
     </NavigationMenu.Item>
@@ -47,6 +52,8 @@ type NavbarProps = {
   setOpen: Dispatch<SetStateAction<boolean>>;
   isDarkMode: boolean;
   setIsDarkMode: Dispatch<SetStateAction<boolean>>;
+  markdownData: MarkdownDataType[];
+  setMarkdownData: Dispatch<SetStateAction<MarkdownDataType[]>>;
 };
 
 const Navbar: React.FC<NavbarProps> = ({
@@ -54,6 +61,8 @@ const Navbar: React.FC<NavbarProps> = ({
   setOpen,
   isDarkMode,
   setIsDarkMode,
+  markdownData,
+  setMarkdownData,
 }) => {
   const windowWidth = useWindowWith();
 
@@ -80,8 +89,12 @@ const Navbar: React.FC<NavbarProps> = ({
             + New Document
           </NavigationMenu.Trigger>
         </NavigationMenu.Item>
-        {files.map((item) => (
-          <MarkdownFile key={item.name} name={item.name} date={item.date} />
+        {markdownData?.map((item) => (
+          <MarkdownFile
+            key={item.name}
+            data={item}
+            setMarkdownData={setMarkdownData}
+          />
         ))}
         <NavigationMenu.Item className="mt-auto">
           <ThemeSwitch isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />

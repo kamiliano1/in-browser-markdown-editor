@@ -1,28 +1,33 @@
 "use client";
-import Image from "next/image";
-import Button from "../layout/Button/Button";
-import ThemeSwitch from "../layout/ThemeSwitch/ThemeSwitch";
-import InputText from "../layout/InputText/InputText";
+import useWindowWith from "@/hooks/useWindowWidth";
+import MarkdownEditor from "@/layout/MarkdownEditors/MarkdownEditor";
+import MarkdownPreview from "@/layout/MarkdownEditors/MarkdownPreview";
+import { useEffect, useState } from "react";
 import Navbar from "../layout/Navbar/Navbar";
-import { useState } from "react";
-import HamburgerIcon from "@/layout/Navbar/HamburgerIcon";
-import { FiEye } from "react-icons/fi";
-import { FiEyeOff } from "react-icons/fi";
 import data from "./data/data.json";
-
-type ActivatedPartType = "Markdown" | "Preview";
+export type ActivatedPartType = "Markdown" | "Preview";
+export type MarkdownDataType = {
+  createdAt: string;
+  name: string;
+  content: string;
+  isActivated: boolean;
+  id: string;
+};
 
 export default function Home() {
+  const [markdownData, setMarkdownData] = useState<MarkdownDataType[]>(data);
+  const [activatedMarkdown, setActivatedMarkdown] = useState<MarkdownDataType>(
+    data[0]
+  );
+  const windowWidth = useWindowWith();
   const [open, setOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [activatedPart, setActivatedPart] =
     useState<ActivatedPartType>("Markdown");
 
-  const switchPart = () => {
-    activatedPart === "Markdown"
-      ? setActivatedPart("Preview")
-      : setActivatedPart("Markdown");
-  };
+  useEffect(() => {
+    console.log(markdownData.find((item) => item.isActivated === true));
+  }, [markdownData]);
   return (
     <main className="overflow-hidden">
       <Navbar
@@ -30,6 +35,8 @@ export default function Home() {
         setOpen={setOpen}
         isDarkMode={isDarkMode}
         setIsDarkMode={setIsDarkMode}
+        markdownData={markdownData}
+        setMarkdownData={setMarkdownData}
       />
       <div
         className={`relative h-[100vh] ${!isDarkMode ? "bg-1000" : "bg-100"}`}
@@ -43,36 +50,44 @@ export default function Home() {
               }
               `}
         >
-          <div
-            className={`flex px-4 py-3  items-center ${
-              !isDarkMode ? "bg-900" : "bg-200"
-            } justify-between`}
-          >
-            <h1
-              className={`text-headingS uppercase  ${
-                !isDarkMode ? "text-400" : "text-500"
-              }`}
-            >
-              {activatedPart === "Markdown" ? "Markdown" : "Preview"}
-            </h1>
-            {activatedPart === "Markdown" ? (
-              <FiEye
-                onClick={switchPart}
-                className={`${!isDarkMode ? "text-400" : "text-500"}`}
+          {windowWidth < 500 ? (
+            <>
+              {activatedPart === "Markdown" ? (
+                <MarkdownEditor
+                  isDarkMode={isDarkMode}
+                  activatedPart={activatedPart}
+                  setActivatedPart={setActivatedPart}
+                  activatedMarkdown={activatedMarkdown}
+                  setActivatedMarkdown={setActivatedMarkdown}
+                />
+              ) : (
+                <MarkdownPreview
+                  isDarkMode={isDarkMode}
+                  activatedPart={activatedPart}
+                  setActivatedPart={setActivatedPart}
+                  activatedMarkdown={activatedMarkdown}
+                  setActivatedMarkdown={setActivatedMarkdown}
+                />
+              )}
+            </>
+          ) : (
+            <div className="flex">
+              <MarkdownEditor
+                isDarkMode={isDarkMode}
+                activatedPart={activatedPart}
+                setActivatedPart={setActivatedPart}
+                activatedMarkdown={activatedMarkdown}
+                setActivatedMarkdown={setActivatedMarkdown}
               />
-            ) : (
-              <FiEyeOff
-                onClick={switchPart}
-                className={`${!isDarkMode ? "text-400" : "text-500"}`}
+              <MarkdownPreview
+                isDarkMode={isDarkMode}
+                activatedPart={activatedPart}
+                setActivatedPart={setActivatedPart}
+                activatedMarkdown={activatedMarkdown}
+                setActivatedMarkdown={setActivatedMarkdown}
               />
-            )}
-          </div>
-          <textarea
-            value={data[1].content}
-            className={`p-4 w-full h-[calc(100vh_-_108px)]  ${
-              !isDarkMode ? "bg-1000 text-400" : "bg-100 text-700"
-            }`}
-          ></textarea>
+            </div>
+          )}
         </div>
       </div>
     </main>
