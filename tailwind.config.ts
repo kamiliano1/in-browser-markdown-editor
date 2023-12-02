@@ -115,65 +115,8 @@ const config: Config = {
       ],
     },
     extend: {
-      keyframes: {
-        closeIconAfter: {
-          from: { transform: "rotate(0deg)" },
-          to: { transform: "rotate(45deg)" },
-        },
-        closeIcon: {
-          from: { opacity: "1" },
-          to: { opacity: "0" },
-        },
-        closeIconBefore: {
-          from: { transform: "rotate(0deg)" },
-          to: {
-            transform: "rotate(-45deg)",
-          },
-        },
-        openIcon: {
-          from: { opacity: "0" },
-          to: { opacity: "1" },
-        },
-        openIconAfter: {
-          from: { transform: "rotate(45deg)" },
-          to: { transform: "rotate(0deg)" },
-        },
-        openIconBefore: {
-          from: {
-            transform: "rotate(-45deg)",
-          },
-          to: { transform: "rotate(0deg)" },
-        },
-
-        sliderOpen: {
-          from: { transform: "translateX(0)" },
-          to: { transform: "translateX(-250px)" },
-        },
-        sliderClose: {
-          from: { transform: "translateX(-250px)" },
-          to: { transform: "translateX(0)" },
-        },
-        markdownOpen: {
-          from: { transform: "translateX(0)" },
-          to: { transform: "translateX(250px)" },
-        },
-        markdownClose: {
-          from: { transform: "translateX(250px)" },
-          to: { transform: "translateX(0)" },
-        },
-      },
-      animation: {
-        closeIcon: "closeIcon 250ms cubic-bezier(0.4, 0, 0.6, 1)",
-        closeIconAfter: "closeIconAfter 550ms cubic-bezier(0.4, 0, 0.6, 1)",
-        closeIconBefore: "closeIconBefore 550ms cubic-bezier(0.4, 0, 0.6, 1)",
-        openIcon: "openIcon 250ms cubic-bezier(0.4, 0, 0.6, 1)",
-        openIconAfter: "openIconAfter 550ms cubic-bezier(0.4, 0, 0.6, 1)",
-        openIconBefore: "openIconBefore 550ms cubic-bezier(0.4, 0, 0.6, 1)",
-        sliderOpen: "sliderOpen 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
-        sliderClose: "sliderClose 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
-        markdownOpen: "markdownOpen 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
-        markdownClose: "markdownClose 1000ms cubic-bezier(0.16, 1, 0.3, 1)",
-      },
+      keyframes: {},
+      animation: {},
     },
   },
   plugins: [],

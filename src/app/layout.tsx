@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto, Roboto_Slab, Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import RecoilProvider from "./RecoilProvider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -32,11 +33,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${robotoMono.variable} ${robotoSlab.variable} ${roboto.variable}`}
-      >
-        {children}
-      </body>
+      <RecoilProvider>
+        <body
+          className={`${robotoMono.variable} ${robotoSlab.variable} ${roboto.variable}`}
+        >
+          {children}
+        </body>
+      </RecoilProvider>
     </html>
   );
 }

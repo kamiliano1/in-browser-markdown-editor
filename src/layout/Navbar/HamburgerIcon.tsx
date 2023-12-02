@@ -1,32 +1,38 @@
-import React, { Dispatch, SetStateAction } from "react";
+import { editorState } from "@/atoms/markdownAtom";
+import React from "react";
+import { useRecoilState } from "recoil";
 
-type HamburgerIconProps = {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-};
+type HamburgerIconProps = {};
 
-const HamburgerIcon: React.FC<HamburgerIconProps> = ({ open, setOpen }) => {
+const HamburgerIcon: React.FC<HamburgerIconProps> = () => {
+  const [markdownEditorState, setMarkdownEditorState] =
+    useRecoilState(editorState);
   return (
     <div
       className={`w-[23.5px] sm:w-[30px] sm:h-[22.5px] h-[18px] flex flex-col justify-between`}
-      onClick={() => setOpen((prev) => !prev)}
+      onClick={() =>
+        setMarkdownEditorState((prev) => ({
+          ...prev,
+          isSidebarOpen: !prev.isSidebarOpen,
+        }))
+      }
     >
       <span
-        className={`w-full h-[1.56px] bg-300 origin-top-left rounded-xl ${
-          open ? "animate-closeIconAfter rotate-45" : "animate-openIconAfter"
+        className={`w-full h-[1.56px] bg-300 origin-top-left rounded-xl transition duration-500 ${
+          markdownEditorState.isSidebarOpen && "rotate-45"
         }`}
       ></span>
       <span
-        className={`w-full h-[1.56px] bg-300 rounded-xl ${
-          open ? "animate-closeIcon opacity-0" : "animate-openIcon"
-        }`}
+        className={`w-full h-[1.56px] bg-300 rounded-xl transition duration-500 ${
+          markdownEditorState.isSidebarOpen && "opacity-0"
+        }
+`}
       ></span>
       <span
-        className={`w-full h-[1.56px] bg-300 origin-bottom-left rounded-xl ${
-          open
-            ? "animate-closeIconBefore rotate-[-45deg]"
-            : "animate-openIconBefore"
-        }`}
+        className={`w-full h-[1.56px] bg-300 origin-bottom-left rounded-xl transition duration-500 ${
+          markdownEditorState.isSidebarOpen && "rotate-[-45deg]"
+        }
+`}
       ></span>
     </div>
   );

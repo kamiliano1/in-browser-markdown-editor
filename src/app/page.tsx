@@ -5,6 +5,8 @@ import MarkdownPreview from "@/layout/MarkdownEditors/MarkdownPreview";
 import { useEffect, useState } from "react";
 import Navbar from "../layout/Navbar/Navbar";
 import data from "./data/data.json";
+import { editorState } from "@/atoms/markdownAtom";
+import { useRecoilState } from "recoil";
 export type ActivatedPartType = "Markdown" | "Preview";
 export type MarkdownDataType = {
   createdAt: string;
@@ -16,76 +18,41 @@ export type MarkdownDataType = {
 
 export default function Home() {
   const [markdownData, setMarkdownData] = useState<MarkdownDataType[]>(data);
-  const [activatedMarkdown, setActivatedMarkdown] = useState<MarkdownDataType>(
-    data[0]
-  );
-  const windowWidth = useWindowWith();
-  const [open, setOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [activatedPart, setActivatedPart] =
-    useState<ActivatedPartType>("Markdown");
 
+  const [markdownEditorState, setMarkdownEditorState] =
+    useRecoilState(editorState);
+  const windowWidth = useWindowWith();
+  useEffect(() => {
+    setMarkdownEditorState((prev) => ({ ...prev, data: data }));
+  }, [setMarkdownEditorState]);
   useEffect(() => {
     console.log(markdownData.find((item) => item.isActivated === true));
   }, [markdownData]);
   return (
     <main className="overflow-hidden">
-      <Navbar
-        open={open}
-        setOpen={setOpen}
-        isDarkMode={isDarkMode}
-        setIsDarkMode={setIsDarkMode}
-        markdownData={markdownData}
-        setMarkdownData={setMarkdownData}
-      />
+      <Navbar markdownData={markdownData} setMarkdownData={setMarkdownData} />
       <div
-        className={`relative h-[100vh] ${!isDarkMode ? "bg-1000" : "bg-100"}`}
+        className={`relative h-[100vh] ${
+          markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
+        }`}
       >
         <div
-          className={`absolute top-0 left-0 pt-[56px] sm:pt-[72px]  
-              ${
-                open
-                  ? " translate-x-[250px] animate-markdownOpen sw-[calc(100%_-_250px)] w-full overflow-hidden"
-                  : "animate-markdownClose w-full"
-              }
-              `}
+          className={`absolute top-0 left-0 pt-[56px] sm:pt-[72px] transition duration-500 w-full ${
+            markdownEditorState.isSidebarOpen && "translate-x-[250px]"
+          }`}
         >
           {windowWidth < 500 ? (
             <>
-              {activatedPart === "Markdown" ? (
-                <MarkdownEditor
-                  isDarkMode={isDarkMode}
-                  activatedPart={activatedPart}
-                  setActivatedPart={setActivatedPart}
-                  activatedMarkdown={activatedMarkdown}
-                  setActivatedMarkdown={setActivatedMarkdown}
-                />
+              {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
+                <MarkdownEditor />
               ) : (
-                <MarkdownPreview
-                  isDarkMode={isDarkMode}
-                  activatedPart={activatedPart}
-                  setActivatedPart={setActivatedPart}
-                  activatedMarkdown={activatedMarkdown}
-                  setActivatedMarkdown={setActivatedMarkdown}
-                />
+                <MarkdownPreview />
               )}
             </>
           ) : (
             <div className="flex">
-              <MarkdownEditor
-                isDarkMode={isDarkMode}
-                activatedPart={activatedPart}
-                setActivatedPart={setActivatedPart}
-                activatedMarkdown={activatedMarkdown}
-                setActivatedMarkdown={setActivatedMarkdown}
-              />
-              <MarkdownPreview
-                isDarkMode={isDarkMode}
-                activatedPart={activatedPart}
-                setActivatedPart={setActivatedPart}
-                activatedMarkdown={activatedMarkdown}
-                setActivatedMarkdown={setActivatedMarkdown}
-              />
+              <MarkdownEditor />
+              <MarkdownPreview />
             </div>
           )}
         </div>

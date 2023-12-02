@@ -1,41 +1,52 @@
-import { ActivatedPartType, MarkdownDataType } from "@/app/page";
+import { MarkdownDataType, editorState } from "@/atoms/markdownAtom";
 import useWindowWith from "@/hooks/useWindowWidth";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState } from "react";
 import { FiEye } from "react-icons/fi";
+import { useRecoilState } from "recoil";
 
-type MarkdownEditorProps = {
-  isDarkMode: boolean;
-  activatedPart: ActivatedPartType;
-  setActivatedPart: Dispatch<SetStateAction<ActivatedPartType>>;
-  activatedMarkdown: MarkdownDataType;
-  setActivatedMarkdown: Dispatch<SetStateAction<MarkdownDataType>>;
-};
+type MarkdownEditorProps = {};
 
-const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
-  isDarkMode,
-  setActivatedPart,
-  activatedPart,
-}) => {
+const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
+  const [markdownEditorState, setMarkdownEditorState] =
+    useRecoilState(editorState);
   const windowWidth = useWindowWith();
+  const [activatedMarkdown, setActivatedMarkdown] = useState<MarkdownDataType>(
+    markdownEditorState.data[0]
+  );
+
+  useEffect(() => {
+    setActivatedMarkdown(
+      markdownEditorState.data.filter(
+        (item) => item.id === markdownEditorState.activeMarkdownId
+      )[0]
+    );
+  }, [markdownEditorState.activeMarkdownId, markdownEditorState.data]);
   const switchPart = () => {
-    activatedPart === "Markdown"
-      ? setActivatedPart("Preview")
-      : setActivatedPart("Markdown");
+    setMarkdownEditorState((prev) => ({
+      ...prev,
+      activatedMarkdownPart:
+        markdownEditorState.activatedMarkdownPart === "Markdown"
+          ? "Preview"
+          : "Markdown",
+    }));
   };
+
   return (
     <div
       className={`w-full sm:border-r-[1px] border-r-600 ${
-        windowWidth > 500 && activatedPart === "Markdown" && "hidden"
+        windowWidth > 500 &&
+        markdownEditorState.activatedMarkdownPart === "Markdown" &&
+        "hidden"
       }`}
     >
       <div
-        className={`flex px-4 py-3  items-center ${
-          !isDarkMode ? "bg-900" : "bg-200"
+        className={`flex px-4 py-3 items-center ${
+          !markdownEditorState.isLightMode ? "bg-900" : "bg-200"
         } justify-between`}
       >
         <h1
           className={`text-headingS uppercase  ${
-            !isDarkMode ? "text-400" : "text-500"
+            !markdownEditorState.isLightMode ? "text-400" : "text-500"
           }`}
         >
           Markdown
@@ -43,13 +54,17 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({
 
         <FiEye
           onClick={switchPart}
-          className={`sm:hidden ${!isDarkMode ? "text-400" : "text-500"}`}
+          className={`sm:hidden ${
+            !markdownEditorState.isLightMode ? "text-400" : "text-500"
+          }`}
         />
       </div>
       <textarea
-        value={"data[1].content"}
+        value={activatedMarkdown.content}
         className={`p-4 w-full h-[calc(100vh_-_108px)]  ${
-          !isDarkMode ? "bg-1000 text-400" : "bg-100 text-700"
+          !markdownEditorState.isLightMode
+            ? "bg-1000 text-400"
+            : "bg-100 text-700"
         }`}
       ></textarea>
       ;

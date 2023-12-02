@@ -10,25 +10,19 @@ import { MarkdownDataType } from "@/app/page";
 import { CiFileOn } from "react-icons/ci";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import HamburgerIcon from "./HamburgerIcon";
+import { editorState } from "@/atoms/markdownAtom";
+import { useRecoilState } from "recoil";
 
 type MarkdownFileType = {
   data: MarkdownDataType;
-  setMarkdownData: Dispatch<SetStateAction<MarkdownDataType[]>>;
 };
 
-const MarkdownFile: React.FC<MarkdownFileType> = ({
-  data,
-  setMarkdownData,
-}) => {
+const MarkdownFile: React.FC<MarkdownFileType> = ({ data }) => {
+  const [markdownEditorState, setMarkdownEditorState] =
+    useRecoilState(editorState);
   const { name, createdAt, id } = data;
   const activateMarkdown = () => {
-    setMarkdownData((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, isActivated: true }
-          : { ...item, isActivated: false }
-      )
-    );
+    setMarkdownEditorState((prev) => ({ ...prev, activeMarkdownId: id }));
   };
   return (
     <NavigationMenu.Item
@@ -46,33 +40,21 @@ const MarkdownFile: React.FC<MarkdownFileType> = ({
     </NavigationMenu.Item>
   );
 };
-
 type NavbarProps = {
-  open: boolean;
-  setOpen: Dispatch<SetStateAction<boolean>>;
-  isDarkMode: boolean;
-  setIsDarkMode: Dispatch<SetStateAction<boolean>>;
   markdownData: MarkdownDataType[];
   setMarkdownData: Dispatch<SetStateAction<MarkdownDataType[]>>;
 };
-
-const Navbar: React.FC<NavbarProps> = ({
-  open,
-  setOpen,
-  isDarkMode,
-  setIsDarkMode,
-  markdownData,
-  setMarkdownData,
-}) => {
+const Navbar: React.FC<NavbarProps> = ({ markdownData, setMarkdownData }) => {
   const windowWidth = useWindowWith();
-
+  const [markdownEditorState, setMarkdownEditorState] =
+    useRecoilState(editorState);
   return (
     <NavigationMenu.Root
       orientation="vertical"
       className={`text-100 fixed w-full grid
       grid-cols-[250px,_100vw]
-      grid-rows-[56px,1fr] sm:grid-rows-[72px,1fr] z-[5] ${
-        open ? "animate-sliderClose" : "-translate-x-[250px] animate-sliderOpen"
+      grid-rows-[56px,1fr] sm:grid-rows-[72px,1fr] z-[5] transition duration-500 ${
+        !markdownEditorState.isSidebarOpen && "-translate-x-[250px]"
       }`}
     >
       <NavigationMenu.List className="w-[250px] h-[100vh] bg-900 px-6 py-7 flex flex-col">
@@ -90,20 +72,16 @@ const Navbar: React.FC<NavbarProps> = ({
           </NavigationMenu.Trigger>
         </NavigationMenu.Item>
         {markdownData?.map((item) => (
-          <MarkdownFile
-            key={item.name}
-            data={item}
-            setMarkdownData={setMarkdownData}
-          />
+          <MarkdownFile key={item.name} data={item} />
         ))}
         <NavigationMenu.Item className="mt-auto">
-          <ThemeSwitch isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+          <ThemeSwitch />
         </NavigationMenu.Item>
       </NavigationMenu.List>
       <NavigationMenu.List className="flex items-center pr-2 sm:pr-4 justify-between h-[56px] sm:h-[72px] bg-800">
         <NavigationMenu.Item className="flex items-center justify-center bg-700 h-[56px] sm:h-[72px] aspect-square mr-6">
           <NavigationMenu.Trigger title="toggle sidebar">
-            <HamburgerIcon open={open} setOpen={setOpen} />
+            <HamburgerIcon />
           </NavigationMenu.Trigger>
         </NavigationMenu.Item>
         <Image src={logo} alt="web logo" className="hidden lg:block" />
