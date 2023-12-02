@@ -6,13 +6,12 @@ import { LuSave } from "react-icons/lu";
 import logo from "../../../public/logo.svg";
 import useWindowWith from "../../hooks/useWindowWidth";
 import InputText from "../InputText/InputText";
-import { MarkdownDataType } from "@/app/page";
 import { CiFileOn } from "react-icons/ci";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import HamburgerIcon from "./HamburgerIcon";
-import { editorState } from "@/atoms/markdownAtom";
+import { MarkdownDataType, editorState } from "@/atoms/markdownAtom";
 import { useRecoilState } from "recoil";
-
+import { nanoid } from "nanoid";
 type MarkdownFileType = {
   data: MarkdownDataType;
 };
@@ -35,27 +34,42 @@ const MarkdownFile: React.FC<MarkdownFileType> = ({ data }) => {
       >
         <CiFileOn className="row-span-2" />
         <p className="text-start text-bodyM text-500 mb-1">{createdAt}</p>
-        <p className="text-headingM">{name}</p>
+        <p className="text-headingM hover:text-orange">{name}</p>
       </NavigationMenu.Trigger>
     </NavigationMenu.Item>
   );
 };
-type NavbarProps = {
-  markdownData: MarkdownDataType[];
-  setMarkdownData: Dispatch<SetStateAction<MarkdownDataType[]>>;
-};
-const Navbar: React.FC<NavbarProps> = ({ markdownData, setMarkdownData }) => {
+type NavbarProps = {};
+const Navbar: React.FC<NavbarProps> = () => {
   const windowWidth = useWindowWith();
+
+  const addLeadingZeros = (n: number) => {
+    return n <= 9 ? "0" + n : n;
+  };
+
   const [markdownEditorState, setMarkdownEditorState] =
     useRecoilState(editorState);
+  const addNewMarkdown = () => {
+    const todayDate = `${addLeadingZeros(
+      new Date().getDate()
+    )}-${addLeadingZeros(new Date().getMonth())}-${new Date().getFullYear()}`;
+
+    setMarkdownEditorState((prev) => ({
+      ...prev,
+      data: [
+        ...prev.data,
+        { name: "", content: "", createdAt: todayDate, id: nanoid() },
+      ],
+    }));
+  };
   return (
     <NavigationMenu.Root
       orientation="vertical"
       className={`text-100 fixed w-full grid
-      grid-cols-[250px,_100vw]
-      grid-rows-[56px,1fr] sm:grid-rows-[72px,1fr] z-[5] transition duration-500 ${
-        !markdownEditorState.isSidebarOpen && "-translate-x-[250px]"
-      }`}
+        grid-cols-[250px,_100vw]
+        grid-rows-[56px,1fr] sm:grid-rows-[72px,1fr] z-[5] transition duration-500 ${
+          !markdownEditorState.isSidebarOpen && "-translate-x-[250px]"
+        }`}
     >
       <NavigationMenu.List className="w-[250px] h-[100vh] bg-900 px-6 py-7 flex flex-col">
         <Image src={logo} alt="web logo" className="lg:hidden" />
@@ -64,15 +78,16 @@ const Navbar: React.FC<NavbarProps> = ({ markdownData, setMarkdownData }) => {
         </h3>
         <NavigationMenu.Item>
           <NavigationMenu.Trigger
+            onClick={addNewMarkdown}
             title="new document"
             className="bg-orange hover:bg-orangeHover w-full py-2.5 mb-6
-           text-100 rounded text-headingM font-roboto flex justify-center items-center"
+             text-100 rounded text-headingM font-roboto flex justify-center items-center"
           >
             + New Document
           </NavigationMenu.Trigger>
         </NavigationMenu.Item>
-        {markdownData?.map((item) => (
-          <MarkdownFile key={item.name} data={item} />
+        {markdownEditorState.data?.map((item) => (
+          <MarkdownFile key={item.id} data={item} />
         ))}
         <NavigationMenu.Item className="mt-auto">
           <ThemeSwitch />
@@ -92,15 +107,23 @@ const Navbar: React.FC<NavbarProps> = ({ markdownData, setMarkdownData }) => {
           </NavigationMenu.Trigger>
         </NavigationMenu.Item>
         <NavigationMenu.Item className="mr-6">
-          <NavigationMenu.Trigger title="delete markdown">
-            <FaRegTrashAlt className="text-500 text-5 ml-4 hover:bg-orange" />
+          <NavigationMenu.Trigger
+            title="delete markdown"
+            onClick={() =>
+              setMarkdownEditorState((prev) => ({
+                ...prev,
+                isDeleteModalOpen: true,
+              }))
+            }
+          >
+            <FaRegTrashAlt className="text-500 text-5 ml-4 hover:text-orange" />
           </NavigationMenu.Trigger>
         </NavigationMenu.Item>
         <NavigationMenu.Item className="">
           <NavigationMenu.Trigger
             title="save changes"
             className="bg-orange hover:bg-orangeHover 
-           text-100 rounded text-headingM font-roboto h-10 w-10 sm:w-auto sm:px-4 flex justify-center items-center"
+             text-100 rounded text-headingM font-roboto h-10 w-10 sm:w-auto sm:px-4 flex justify-center items-center"
           >
             <LuSave className="text-[1.3rem] sm:mr-2" />
             {windowWidth > 768 && "Save changes"}

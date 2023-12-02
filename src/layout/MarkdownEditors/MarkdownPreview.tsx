@@ -1,8 +1,7 @@
-import { ActivatedPartType, MarkdownDataType } from "@/app/page";
 import { editorState } from "@/atoms/markdownAtom";
 import useWindowWith from "@/hooks/useWindowWidth";
-import React, { Dispatch, SetStateAction } from "react";
-import { FiEyeOff, FiEye } from "react-icons/fi";
+import React from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useRecoilState } from "recoil";
 type MarkdownPreviewProps = {};
 
@@ -33,19 +32,19 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
         >
           Preview
         </h1>
-        {windowWidth > 500 ? (
+        {windowWidth > 640 ? (
           <>
             {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
               <FiEyeOff
                 onClick={switchPart}
-                className={` ${
+                className={`hover:text-orange cursor-pointer ${
                   !markdownEditorState.isLightMode ? "text-400" : "text-500"
                 }`}
               />
             ) : (
               <FiEye
                 onClick={switchPart}
-                className={` ${
+                className={`hover:text-orange cursor-pointer ${
                   !markdownEditorState.isLightMode ? "text-400" : "text-500"
                 }`}
               />
@@ -54,21 +53,21 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
         ) : (
           <FiEyeOff
             onClick={switchPart}
-            className={` ${
+            className={`hover:text-orange cursor-pointer ${
               !markdownEditorState.isLightMode ? "text-400" : "text-500"
             }`}
           />
         )}
       </div>
-      <textarea
-        value={"data[1].content"}
+      <div
         className={`p-4 w-full h-[calc(100vh_-_108px)]  ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
             : "bg-100 text-700"
         }`}
-      ></textarea>
-      ;
+      >
+        <div className="max-w-[981px] mx-auto"></div>
+      </div>
     </div>
   );
 };

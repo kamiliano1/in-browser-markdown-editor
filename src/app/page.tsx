@@ -7,30 +7,23 @@ import Navbar from "../layout/Navbar/Navbar";
 import data from "./data/data.json";
 import { editorState } from "@/atoms/markdownAtom";
 import { useRecoilState } from "recoil";
+import DeleteModal from "@/layout/Modal/DeleteModal/DeleteModal";
 export type ActivatedPartType = "Markdown" | "Preview";
-export type MarkdownDataType = {
-  createdAt: string;
-  name: string;
-  content: string;
-  isActivated: boolean;
-  id: string;
-};
 
 export default function Home() {
-  const [markdownData, setMarkdownData] = useState<MarkdownDataType[]>(data);
-
   const [markdownEditorState, setMarkdownEditorState] =
     useRecoilState(editorState);
   const windowWidth = useWindowWith();
   useEffect(() => {
-    setMarkdownEditorState((prev) => ({ ...prev, data: data }));
+    setMarkdownEditorState((prev) => ({
+      ...prev,
+      data: data,
+      activeMarkdownId: data[0].id,
+    }));
   }, [setMarkdownEditorState]);
-  useEffect(() => {
-    console.log(markdownData.find((item) => item.isActivated === true));
-  }, [markdownData]);
   return (
     <main className="overflow-hidden">
-      <Navbar markdownData={markdownData} setMarkdownData={setMarkdownData} />
+      <Navbar />
       <div
         className={`relative h-[100vh] ${
           markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
@@ -41,7 +34,7 @@ export default function Home() {
             markdownEditorState.isSidebarOpen && "translate-x-[250px]"
           }`}
         >
-          {windowWidth < 500 ? (
+          {windowWidth < 640 ? (
             <>
               {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
                 <MarkdownEditor />
@@ -56,6 +49,7 @@ export default function Home() {
             </div>
           )}
         </div>
+        <DeleteModal />
       </div>
     </main>
   );

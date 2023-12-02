@@ -4,6 +4,7 @@ export type EditorType = {
   data: MarkdownDataType[];
   isLightMode: boolean;
   isSidebarOpen: boolean;
+  isDeleteModalOpen: boolean;
   activatedMarkdownPart: ActivatedPartType;
   activeMarkdownId: string;
 };
@@ -19,6 +20,7 @@ const defaultEditorState: EditorType = {
   data: [{ createdAt: "", name: "", content: "", id: "" }],
   isLightMode: false,
   isSidebarOpen: true,
+  isDeleteModalOpen: false,
   activatedMarkdownPart: "Preview",
   activeMarkdownId: "",
 };

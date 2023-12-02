@@ -34,7 +34,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
   return (
     <div
       className={`w-full sm:border-r-[1px] border-r-600 ${
-        windowWidth > 500 &&
+        windowWidth > 640 &&
         markdownEditorState.activatedMarkdownPart === "Markdown" &&
         "hidden"
       }`}
@@ -54,13 +54,13 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
 
         <FiEye
           onClick={switchPart}
-          className={`sm:hidden ${
+          className={`sm:hidden hover:text-orange cursor-pointer ${
             !markdownEditorState.isLightMode ? "text-400" : "text-500"
           }`}
         />
       </div>
       <textarea
-        value={activatedMarkdown.content}
+        value={activatedMarkdown?.content}
         className={`p-4 w-full h-[calc(100vh_-_108px)]  ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
