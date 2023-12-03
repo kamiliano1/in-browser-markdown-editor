@@ -3,15 +3,12 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { editorState } from "@/atoms/markdownAtom";
 import { useRecoilState } from "recoil";
 import Button from "@/layout/Button/Button";
+import { activatedMarkdownName } from "@/app/utils/activatedMarkdownName";
 type DeleteModalProps = {};
 
 const DeleteModal: React.FC<DeleteModalProps> = () => {
   const [markdownEditorState, setMarkdownEditorState] =
     useRecoilState(editorState);
-
-  const activatedMarkdownName = markdownEditorState.data.find(
-    (item) => item.id === markdownEditorState.activeMarkdownId
-  )?.name;
 
   const deleteMarkdown = () => {
     const deletedMarkdown = markdownEditorState.data.filter(
@@ -21,6 +18,7 @@ const DeleteModal: React.FC<DeleteModalProps> = () => {
       ...prev,
       data: deletedMarkdown,
       activeMarkdownId: deletedMarkdown.length ? deletedMarkdown[0].id : "",
+      inputMarkdownValue: deletedMarkdown.length ? deletedMarkdown[0].name : "",
     }));
   };
   return (
@@ -40,8 +38,12 @@ const DeleteModal: React.FC<DeleteModalProps> = () => {
             Delete this document?
           </Dialog.Title>
           <Dialog.Description className=" text-previewParagraph my-4 text-400 font-robotoSlab">
-            Are you sure you want to delete the `{activatedMarkdownName}`
-            document and its contents? This action cannot be reversed.
+            Are you sure you want to delete the `
+            {activatedMarkdownName(
+              markdownEditorState,
+              markdownEditorState.activeMarkdownId
+            )}
+            ` document and its contents? This action cannot be reversed.
           </Dialog.Description>
           <Dialog.Close asChild>
             <Button

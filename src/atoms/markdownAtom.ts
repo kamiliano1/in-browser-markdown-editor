@@ -7,6 +7,7 @@ export type EditorType = {
   isDeleteModalOpen: boolean;
   activatedMarkdownPart: ActivatedPartType;
   activeMarkdownId: string;
+  inputMarkdownValue: string;
 };
 export type ActivatedPartType = "Markdown" | "Preview";
 export type MarkdownDataType = {
@@ -23,6 +24,7 @@ const defaultEditorState: EditorType = {
   isDeleteModalOpen: false,
   activatedMarkdownPart: "Preview",
   activeMarkdownId: "",
+  inputMarkdownValue: "",
 };
 
 export const editorState = atom<EditorType>({

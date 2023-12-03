@@ -18,9 +18,11 @@ export default function Home() {
     setMarkdownEditorState((prev) => ({
       ...prev,
       data: data,
-      activeMarkdownId: data[0].id,
+      activeMarkdownId: data[1].id,
+      inputMarkdownValue: data[1].name,
     }));
   }, [setMarkdownEditorState]);
+
   return (
     <main className="overflow-hidden">
       <Navbar />

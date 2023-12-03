@@ -1,17 +1,18 @@
+import { activatedMarkdownName } from "@/app/utils/activatedMarkdownName";
+import { MarkdownDataType, editorState } from "@/atoms/markdownAtom";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
+import { nanoid } from "nanoid";
 import Image from "next/image";
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
+import { CiFileOn } from "react-icons/ci";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { LuSave } from "react-icons/lu";
+import { useRecoilState } from "recoil";
 import logo from "../../../public/logo.svg";
 import useWindowWith from "../../hooks/useWindowWidth";
 import InputText from "../InputText/InputText";
-import { CiFileOn } from "react-icons/ci";
 import ThemeSwitch from "../ThemeSwitch/ThemeSwitch";
 import HamburgerIcon from "./HamburgerIcon";
-import { MarkdownDataType, editorState } from "@/atoms/markdownAtom";
-import { useRecoilState } from "recoil";
-import { nanoid } from "nanoid";
 type MarkdownFileType = {
   data: MarkdownDataType;
 };
@@ -21,7 +22,11 @@ const MarkdownFile: React.FC<MarkdownFileType> = ({ data }) => {
     useRecoilState(editorState);
   const { name, createdAt, id } = data;
   const activateMarkdown = () => {
-    setMarkdownEditorState((prev) => ({ ...prev, activeMarkdownId: id }));
+    setMarkdownEditorState((prev) => ({
+      ...prev,
+      activeMarkdownId: id,
+      inputMarkdownValue: activatedMarkdownName(markdownEditorState, id),
+    }));
   };
   return (
     <NavigationMenu.Item
@@ -42,25 +47,33 @@ const MarkdownFile: React.FC<MarkdownFileType> = ({ data }) => {
 type NavbarProps = {};
 const Navbar: React.FC<NavbarProps> = () => {
   const windowWidth = useWindowWith();
-
-  const addLeadingZeros = (n: number) => {
-    return n <= 9 ? "0" + n : n;
-  };
-
   const [markdownEditorState, setMarkdownEditorState] =
     useRecoilState(editorState);
   const addNewMarkdown = () => {
+    const addLeadingZeros = (n: number) => {
+      return n <= 9 ? "0" + n : n;
+    };
     const todayDate = `${addLeadingZeros(
       new Date().getDate()
     )}-${addLeadingZeros(new Date().getMonth())}-${new Date().getFullYear()}`;
-
+    const markdownId = nanoid();
     setMarkdownEditorState((prev) => ({
       ...prev,
+      activeMarkdownId: markdownId,
+      inputMarkdownValue: "",
       data: [
         ...prev.data,
-        { name: "", content: "", createdAt: todayDate, id: nanoid() },
+        { name: "", content: "", createdAt: todayDate, id: markdownId },
       ],
     }));
+  };
+  const saveChanges = () => {
+    const savedMarkdownName = markdownEditorState.data.map((item) =>
+      item.id === markdownEditorState.activeMarkdownId
+        ? { ...item, name: markdownEditorState.inputMarkdownValue }
+        : item
+    );
+    setMarkdownEditorState((prev) => ({ ...prev, data: savedMarkdownName }));
   };
   return (
     <NavigationMenu.Root
@@ -108,6 +121,7 @@ const Navbar: React.FC<NavbarProps> = () => {
         </NavigationMenu.Item>
         <NavigationMenu.Item className="mr-6">
           <NavigationMenu.Trigger
+            disabled={markdownEditorState.data.length ? false : true}
             title="delete markdown"
             onClick={() =>
               setMarkdownEditorState((prev) => ({
@@ -122,6 +136,8 @@ const Navbar: React.FC<NavbarProps> = () => {
         <NavigationMenu.Item className="">
           <NavigationMenu.Trigger
             title="save changes"
+            disabled={markdownEditorState.data.length ? false : true}
+            onClick={saveChanges}
             className="bg-orange hover:bg-orangeHover 
              text-100 rounded text-headingM font-roboto h-10 w-10 sm:w-auto sm:px-4 flex justify-center items-center"
           >
