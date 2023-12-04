@@ -26,6 +26,7 @@ const MarkdownFile: React.FC<MarkdownFileType> = ({ data }) => {
       ...prev,
       activeMarkdownId: id,
       inputMarkdownValue: activatedMarkdownName(markdownEditorState, id),
+      isReloaded: false,
     }));
   };
   return (
@@ -63,7 +64,13 @@ const Navbar: React.FC<NavbarProps> = () => {
       inputMarkdownValue: "",
       data: [
         ...prev.data,
-        { name: "", content: "", createdAt: todayDate, id: markdownId },
+        {
+          name: "",
+          content: "",
+          createdAt: todayDate,
+          id: markdownId,
+          isReloaded: false,
+        },
       ],
     }));
   };

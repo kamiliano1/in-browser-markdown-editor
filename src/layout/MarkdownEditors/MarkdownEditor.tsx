@@ -15,12 +15,20 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
   );
 
   useEffect(() => {
-    setActivatedMarkdown(
-      markdownEditorState.data.filter(
-        (item) => item.id === markdownEditorState.activeMarkdownId
-      )[0]
-    );
-  }, [markdownEditorState.activeMarkdownId, markdownEditorState.data]);
+    if (!markdownEditorState.isReloaded) {
+      setActivatedMarkdown(
+        markdownEditorState.data.filter(
+          (item) => item.id === markdownEditorState.activeMarkdownId
+        )[0]
+      );
+      setMarkdownEditorState((prev) => ({ ...prev, isReloaded: true }));
+    }
+  }, [
+    markdownEditorState.activeMarkdownId,
+    markdownEditorState.data,
+    markdownEditorState.isReloaded,
+    setMarkdownEditorState,
+  ]);
   const switchPart = () => {
     setMarkdownEditorState((prev) => ({
       ...prev,
@@ -29,6 +37,18 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
           ? "Preview"
           : "Markdown",
     }));
+  };
+  const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setActivatedMarkdown((prev) => ({ ...prev, [name]: value }));
+    setMarkdownEditorState((prev) => {
+      const updatedMarkdown = markdownEditorState.data.map((item) =>
+        item.id === markdownEditorState.activeMarkdownId
+          ? activatedMarkdown
+          : item
+      );
+      return { ...prev, data: updatedMarkdown };
+    });
   };
 
   return (
@@ -60,6 +80,9 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
         />
       </div>
       <textarea
+        onChange={onChange}
+        name="content"
+        id="content"
         value={activatedMarkdown?.content}
         className={`p-4 w-full h-[calc(100vh_-_108px)]  ${
           !markdownEditorState.isLightMode

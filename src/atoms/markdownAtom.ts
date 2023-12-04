@@ -8,6 +8,7 @@ export type EditorType = {
   activatedMarkdownPart: ActivatedPartType;
   activeMarkdownId: string;
   inputMarkdownValue: string;
+  isReloaded: boolean;
 };
 export type ActivatedPartType = "Markdown" | "Preview";
 export type MarkdownDataType = {
@@ -25,6 +26,7 @@ const defaultEditorState: EditorType = {
   activatedMarkdownPart: "Preview",
   activeMarkdownId: "",
   inputMarkdownValue: "",
+  isReloaded: false,
 };
 
 export const editorState = atom<EditorType>({
