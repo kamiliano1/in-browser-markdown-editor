@@ -66,7 +66,8 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
   //     );
   //   }
   // };
-
+  let numbersArray = new Array(100).fill("");
+  numbersArray = numbersArray.map((item, id) => `${id + 1}.`);
   const MarkdownPrint = () => {
     return printedMarkdown.map((item, id) => {
       // markdownUtility({
@@ -76,6 +77,10 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
       //   font: "text-previewH1",
       //   HtmlElement: "h1",
       // });
+      var result = numbersArray.findIndex((element) =>
+        item.startsWith(element)
+      );
+      console.log(result);
       if (item.startsWith("# ")) {
         return (
           <h1
@@ -201,8 +206,12 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
         }`}
       >
         <div className="max-w-[981px] mx-auto markdownPrinter flex flex-col gap-5">
+          <p className="ml-6">
+            <span className="mr-2">1.</span>Write markdown in the markdown
+            editor window
+          </p>
           <MarkdownPrint />
-          <h1
+          {/* <h1
             className={`text-previewH1  ${
               !markdownEditorState.isLightMode ? "text-100" : "text-700"
             }`}
@@ -255,7 +264,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Amet,
             deserunt molestias. Iusto ratione sequi debitis qui adipisci dicta
             vel autem.
-          </h6>
+          </h6> */}
         </div>
       </div>
     </div>
