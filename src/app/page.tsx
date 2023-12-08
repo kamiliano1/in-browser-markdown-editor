@@ -24,7 +24,7 @@ export default function Home() {
   }, [setMarkdownEditorState]);
 
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-x-hidden">
       <Navbar />
       <div
         className={`relative h-[100vh] ${
