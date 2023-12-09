@@ -38,44 +38,15 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
   const sprawdz = () => {
     console.log(activatedMarkdownContent.split("\n"));
   };
-
-  // type MarkdownType = {
-  //   item: string;
-  //   id: number;
-  //   startWith: string;
-  //   font: string;
-  //   HtmlElement: string;
-  // };
-
-  // const markdownUtility = ({
-  //   item,
-  //   id,
-  //   startWith,
-  //   font,
-  //   HtmlElement,
-  // }: MarkdownType) => {
-  //   if (item.startsWith(startWith)) {
-  //     return (
-  //       <HtmlElement
-  //         key={id}
-  //         className={`${font}  ${
-  //           !markdownEditorState.isLightMode ? "text-100" : "text-700"
-  //         }`}
-  //       >
-  //         {item.slice(startWith.length)}
-  //       </HtmlElement>
-  //     );
-  //   }
-  // };
   let numbersArray = new Array(100).fill("");
   numbersArray = numbersArray.map((item, id) => `${id + 1}. `);
   const MarkdownPrint = () => {
     return printedMarkdown.map((item, id) => {
-      // console.log(item.indexOf("["), "[");
-      // console.log(item.indexOf("]("), "](");
-      // console.log(item.indexOf(")"), ")");
-      if ((item.indexOf("[") && item.indexOf("](") && item.indexOf(")")) > 0) {
-        const startSentence = item.slice(2, item.indexOf("["));
+      if (
+        item.indexOf(")") > item.indexOf("](") &&
+        item.indexOf("](") > item.indexOf("[")
+      ) {
+        const startSentence = item.slice(0, item.indexOf("["));
         const endSentence = item.slice(item.indexOf(")") + 1);
         const linkName = item.slice(item.indexOf("[") + 1, item.indexOf("]("));
         const linkAddress = item.slice(
@@ -83,7 +54,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
           item.indexOf(")")
         );
         return (
-          <p key={item}>
+          <p key={id}>
             {startSentence}
             <Link className="underline" href={linkAddress}>
               {linkName}
