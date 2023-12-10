@@ -14,6 +14,22 @@ const InputText: ForwardRefRenderFunction<
     const { name, value } = e.target;
     setMarkdownEditorState((prev) => ({ ...prev, [name]: value }));
   };
+
+  const saveChanges = () => {
+    const savedMarkdownName = markdownEditorState.data.map((item) =>
+      item.id === markdownEditorState.activeMarkdownId
+        ? { ...item, name: markdownEditorState.inputMarkdownValue }
+        : item
+    );
+    setMarkdownEditorState((prev) => ({ ...prev, data: savedMarkdownName }));
+  };
+
+  const enterSave = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const key = e.key;
+    if (key === "Enter") {
+      saveChanges();
+    }
+  };
   return (
     <div className="flex items-center bg-800 py-3">
       <CiFileOn className="mr-4 text-100" />
@@ -25,6 +41,7 @@ const InputText: ForwardRefRenderFunction<
           Document Name
         </label>
         <input
+          onKeyDown={enterSave}
           type="text"
           onChange={onChange}
           disabled={markdownEditorState.data.length ? false : true}

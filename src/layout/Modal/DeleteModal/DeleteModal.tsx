@@ -19,6 +19,7 @@ const DeleteModal: React.FC<DeleteModalProps> = () => {
       data: deletedMarkdown,
       activeMarkdownId: deletedMarkdown.length ? deletedMarkdown[0].id : "",
       inputMarkdownValue: deletedMarkdown.length ? deletedMarkdown[0].name : "",
+      isReloaded: false,
     }));
   };
   return (
@@ -33,11 +34,23 @@ const DeleteModal: React.FC<DeleteModalProps> = () => {
     >
       <Dialog.Portal>
         <Dialog.Overlay className="bg-500 bg-opacity-50 z-[30] data-[state=open]:animate-overlayShow fixed inset-0" />
-        <Dialog.Content className="data-[state=open]:animate-contentShow z-[31] fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[343px] translate-x-[-50%] translate-y-[-50%] rounded-[4px] bg-900 p-6 focus:outline-none">
-          <Dialog.Title className="text-100 text-previewH4 font-robotoSlab">
+        <Dialog.Content
+          className={`data-[state=open]:animate-contentShow z-[31] fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[343px] translate-x-[-50%] translate-y-[-50%] rounded-[4px] p-6 focus:outline-none
+            ${markdownEditorState.isLightMode ? "bg-100" : "bg-900"}
+            `}
+        >
+          <Dialog.Title
+            className={`text-previewH4 font-robotoSlab ${
+              markdownEditorState.isLightMode ? "text-700" : "text-100"
+            }`}
+          >
             Delete this document?
           </Dialog.Title>
-          <Dialog.Description className=" text-previewParagraph my-4 text-400 font-robotoSlab">
+          <Dialog.Description
+            className={`text-previewParagraph my-4  font-robotoSlab ${
+              markdownEditorState.isLightMode ? "text-500" : "text-400"
+            }`}
+          >
             Are you sure you want to delete the `
             {activatedMarkdownName(
               markdownEditorState,

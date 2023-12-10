@@ -11,8 +11,9 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
     useRecoilState(editorState);
   const windowWidth = useWindowWith();
   const [activatedMarkdown, setActivatedMarkdown] = useState<MarkdownDataType>(
-    markdownEditorState.data[0]
+    markdownEditorState.data[1]
   );
+  const [isCharacterUpdated, setIsCharacterUpdated] = useState<boolean>(false);
 
   useEffect(() => {
     if (!markdownEditorState.isReloaded) {
@@ -32,6 +33,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
   const switchPart = () => {
     setMarkdownEditorState((prev) => ({
       ...prev,
+      isReloaded: false,
       activatedMarkdownPart:
         markdownEditorState.activatedMarkdownPart === "Markdown"
           ? "Preview"
@@ -41,16 +43,27 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setActivatedMarkdown((prev) => ({ ...prev, [name]: value }));
-    setMarkdownEditorState((prev) => {
-      const updatedMarkdown = markdownEditorState.data.map((item) =>
-        item.id === markdownEditorState.activeMarkdownId
-          ? activatedMarkdown
-          : item
-      );
-      return { ...prev, data: updatedMarkdown };
-    });
+    setIsCharacterUpdated(true);
   };
-
+  useEffect(() => {
+    if (isCharacterUpdated) {
+      setMarkdownEditorState((prev) => {
+        const updatedMarkdown = markdownEditorState.data.map((item) =>
+          item.id === markdownEditorState.activeMarkdownId
+            ? activatedMarkdown
+            : item
+        );
+        return { ...prev, data: updatedMarkdown };
+      });
+      setIsCharacterUpdated(false);
+    }
+  }, [
+    activatedMarkdown,
+    isCharacterUpdated,
+    markdownEditorState.activeMarkdownId,
+    markdownEditorState.data,
+    setMarkdownEditorState,
+  ]);
   return (
     <div
       className={`w-full sm:border-r-[1px] border-r-600 ${
@@ -83,8 +96,11 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
         onChange={onChange}
         name="content"
         id="content"
-        value={activatedMarkdown?.content}
-        className={`p-4 w-full h-[calc(100vh_-_108px)]  ${
+        disabled={markdownEditorState.data.length ? false : true}
+        value={
+          markdownEditorState.data.length ? activatedMarkdown?.content : ""
+        }
+        className={`p-4 w-full h-[calc(100vh_-_155px)]  resize-none ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
             : "bg-100 text-700"

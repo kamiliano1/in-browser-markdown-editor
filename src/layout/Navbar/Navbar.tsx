@@ -61,15 +61,15 @@ const Navbar: React.FC<NavbarProps> = () => {
     setMarkdownEditorState((prev) => ({
       ...prev,
       activeMarkdownId: markdownId,
-      inputMarkdownValue: "",
+      inputMarkdownValue: "untitled-document.md",
+      isReloaded: false,
       data: [
         ...prev.data,
         {
-          name: "",
+          name: "untitled-document.md",
           content: "",
           createdAt: todayDate,
           id: markdownId,
-          isReloaded: false,
         },
       ],
     }));
@@ -82,6 +82,7 @@ const Navbar: React.FC<NavbarProps> = () => {
     );
     setMarkdownEditorState((prev) => ({ ...prev, data: savedMarkdownName }));
   };
+
   return (
     <NavigationMenu.Root
       orientation="vertical"
@@ -149,7 +150,7 @@ const Navbar: React.FC<NavbarProps> = () => {
              text-100 rounded text-headingM font-roboto h-10 w-10 sm:w-auto sm:px-4 flex justify-center items-center"
           >
             <LuSave className="text-[1.3rem] sm:mr-2" />
-            {windowWidth > 768 && "Save changes"}
+            {windowWidth >= 640 && "Save changes"}
           </NavigationMenu.Trigger>
         </NavigationMenu.Item>
       </NavigationMenu.List>

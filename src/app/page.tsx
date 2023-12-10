@@ -1,13 +1,13 @@
 "use client";
+import { editorState } from "@/atoms/markdownAtom";
 import useWindowWith from "@/hooks/useWindowWidth";
 import MarkdownEditor from "@/layout/MarkdownEditors/MarkdownEditor";
 import MarkdownPreview from "@/layout/MarkdownEditors/MarkdownPreview";
-import { useEffect, useState } from "react";
+import DeleteModal from "@/layout/Modal/DeleteModal/DeleteModal";
+import { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import Navbar from "../layout/Navbar/Navbar";
 import data from "./data/data.json";
-import { editorState } from "@/atoms/markdownAtom";
-import { useRecoilState } from "recoil";
-import DeleteModal from "@/layout/Modal/DeleteModal/DeleteModal";
 export type ActivatedPartType = "Markdown" | "Preview";
 
 export default function Home() {
@@ -20,17 +20,18 @@ export default function Home() {
       data: data,
       activeMarkdownId: data[1].id,
       inputMarkdownValue: data[1].name,
+      activeContent: data[1].content,
     }));
   }, [setMarkdownEditorState]);
 
   return (
-    <main className="overflow-x-hidden">
+    <main
+      className={`overflow-x-hidden ${
+        !markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
+      }`}
+    >
       <Navbar />
-      <div
-        className={`relative h-[100vh] ${
-          markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
-        }`}
-      >
+      <div className="relative h-[100vh]">
         <div
           className={`absolute top-0 left-0 pt-[56px] sm:pt-[72px] transition duration-500 w-full ${
             markdownEditorState.isSidebarOpen && "translate-x-[250px]"
@@ -39,9 +40,9 @@ export default function Home() {
           {windowWidth < 640 ? (
             <>
               {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
-                <MarkdownEditor />
-              ) : (
                 <MarkdownPreview />
+              ) : (
+                <MarkdownEditor />
               )}
             </>
           ) : (
