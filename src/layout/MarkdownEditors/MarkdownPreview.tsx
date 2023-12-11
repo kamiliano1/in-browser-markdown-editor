@@ -20,7 +20,6 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
           : "Markdown",
     }));
   };
-
   return (
     <div className="w-full">
       <div
