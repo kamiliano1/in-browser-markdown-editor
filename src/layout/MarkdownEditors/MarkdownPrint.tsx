@@ -10,7 +10,6 @@ import H6Element from "./MarkdownElements/H6Element";
 import BlockquoteElement from "./MarkdownElements/BlockquoteElement";
 import OrderedListElement from "./MarkdownElements/OrderedListElement";
 import UnorderedListElement from "./MarkdownElements/UnorderedListElement";
-
 type MarkdownPrintProps = {};
 
 const MarkdownPrint: React.FC<MarkdownPrintProps> = () => {

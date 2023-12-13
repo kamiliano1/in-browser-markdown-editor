@@ -5,3 +5,78 @@
 html {
   background-color: black;
 }
+
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6,
+.markdown blockquote p {
+  @apply text-700;
+}
+.markdown p,
+.markdown li {
+  @apply text-previewParagraph;
+}
+
+.markdown ol li {
+  @apply ml-4 pl-1;
+}
+
+.markdown ol {
+  @apply list-decimal;
+}
+
+.markdown ul li {
+  @apply list-disc list-inside;
+}
+/* .markdown ul li::marker {
+  @apply text-orange;
+} */
+
+.markdown blockquote {
+  @apply text-previewParagraphBold p-6 border-l-[4px] border-l-orange bg-200;
+}
+
+.markdown .lightMode pre {
+  @apply p-6 bg-800 text-100;
+}
+.markdown pre {
+  @apply p-6 bg-200 text-700;
+}
+.markdown .lightMode h1,
+.markdown .lightMode h2,
+.markdown .lightMode h3,
+.markdown .lightMode h4,
+.markdown .lightMode h5,
+.markdown .lightMode h6,
+.markdown .lightMode blockquote p {
+  @apply text-100;
+}
+.markdown blockquote a {
+  @apply underline;
+}
+
+.markdown .lightMode blockquote {
+  @apply bg-800;
+}
+
+.markdown h1 {
+  @apply text-previewH1;
+}
+.markdown h2 {
+  @apply text-previewH2;
+}
+.markdown h3 {
+  @apply text-previewH3;
+}
+.markdown h4 {
+  @apply text-previewH4;
+}
+.markdown h5 {
+  @apply text-previewH5;
+}
+.markdown h6 {
+  @apply text-previewH6;
+}

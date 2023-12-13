@@ -1,17 +1,15 @@
-import React, { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import React, { ComponentProps, ReactNode } from "react";
 
-type ButtonProps<T extends ElementType> = {
-  renderAs?: T;
+type ButtonProps = {
   children: ReactNode;
   cssClassName?: string;
-} & ComponentPropsWithoutRef<T>;
+} & ComponentProps<"button">;
 
-const Button = <T extends ElementType = "button">({
-  renderAs,
+const Button = ({
   children,
   cssClassName,
   ...rest
-}: ButtonProps<T>): JSX.Element => {
+}: ButtonProps): JSX.Element => {
   return (
     <button
       {...rest}
