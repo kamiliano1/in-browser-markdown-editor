@@ -9,7 +9,9 @@ const HamburgerIcon: React.FC<HamburgerIconProps> = () => {
     useRecoilState(editorState);
   return (
     <div
-      className={`w-[23.5px] sm:w-[30px] sm:h-[22.5px] h-[18px] flex flex-col justify-between`}
+      className={`w-[23.5px] sm:w-[30px] sm:h-[22.5px] h-[18px] flex flex-col justify-between transition duration-500 ${
+        markdownEditorState.isSidebarOpen && "translate-x-[6px]"
+      }`}
       onClick={() =>
         setMarkdownEditorState((prev) => ({
           ...prev,

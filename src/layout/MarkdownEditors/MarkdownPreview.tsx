@@ -3,7 +3,6 @@ import useWindowWith from "@/hooks/useWindowWidth";
 import React, { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useRecoilState } from "recoil";
-import MarkdownPrint from "./MarkdownPrint";
 import Markdown from "react-markdown";
 
 type MarkdownPreviewProps = {};
@@ -39,62 +38,6 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
     markdownEditorState.data,
     setMarkdownEditorState,
   ]);
-  const sprawdz = () => {
-    const stringg = `[1](2) [markdown hest](https://www.markdownguide.org/cheat-sheet/). This is an example of a blockquote. If you would like to learn more about markdown syntax, you can visit this [markdowns](https://www.markdownguide.org/cheat-sheet/).`;
-    // if (
-    //   stringg.indexOf(")") > stringg.indexOf("](") &&
-    //   stringg.indexOf("](") > stringg.indexOf("[") &&
-    //   stringg.indexOf("[") > 0
-    // ) {
-    //   const startSentence = stringg.slice(2, stringg.indexOf("["));
-    //   const endSentence = stringg.slice(stringg.indexOf(")") + 1);
-    //   const linkName = stringg.slice(
-    //     stringg.indexOf("[") + 1,
-    //     stringg.indexOf("](")
-    //   );
-    //   const linkAddress = stringg.slice(
-    //     stringg.indexOf("](") + 2,
-    //     stringg.indexOf(")")
-    //   );
-    // }
-    const ifLink = (link: string) => {
-      if (
-        link.indexOf(")") > link.indexOf("](") &&
-        link.indexOf("](") > link.indexOf("[") &&
-        link.indexOf("[") >= 0
-      )
-        return true;
-      return false;
-    };
-    let myIndex = 0;
-    let newString = "";
-    for (let index = 0; index < 30; index++) {
-      // console.log(myIndex);
-      // if (index > stringg.length) return;
-      let testString = stringg.slice(myIndex);
-
-      // if (testString.indexOf("](") === -1) return;
-      // index = testString.indexOf("](");
-      if (ifLink(testString)) {
-        myIndex = stringg.length - testString.length + testString.indexOf(")");
-
-        const startSentence = testString.slice(0, testString.indexOf("["));
-        const endSentence = testString.slice(testString.indexOf(")") + 1);
-        const linkName = testString.slice(
-          testString.indexOf("[") + 1,
-          testString.indexOf("](")
-        );
-        const linkAddress = testString.slice(
-          testString.indexOf("](") + 2,
-          testString.indexOf(")")
-        );
-        newString += startSentence + linkName + linkName;
-      } else {
-        myIndex++;
-      }
-    }
-    console.log(newString);
-  };
 
   return (
     <div className="w-full">
@@ -150,7 +93,6 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
             "mx-auto"
           }`}
         >
-          {/* {markdownEditorState.data.length ? <MarkdownPrint /> : ""} */}
           <Markdown
             className={`flex flex-col gap-2 ${
               !markdownEditorState.isLightMode && "lightMode"

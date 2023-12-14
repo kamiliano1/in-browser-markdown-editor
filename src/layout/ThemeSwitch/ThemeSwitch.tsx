@@ -1,6 +1,5 @@
 import { editorState } from "@/atoms/markdownAtom";
 import * as Switch from "@radix-ui/react-switch";
-import { Dispatch, SetStateAction, useState } from "react";
 import { BiSun } from "react-icons/bi";
 import { IoMoonOutline } from "react-icons/io5";
 import { useRecoilState } from "recoil";
