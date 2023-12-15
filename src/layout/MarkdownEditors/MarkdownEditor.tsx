@@ -100,7 +100,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
         value={
           markdownEditorState.data.length ? activatedMarkdown?.content : ""
         }
-        className={`p-4 w-full h-[calc(100vh_-_155px)]  resize-none ${
+        className={`p-4 w-full h-[calc(100vh_-_155px)] resize-none font-robotoSlab ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
             : "bg-100 text-700"

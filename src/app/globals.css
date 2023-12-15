@@ -6,6 +6,10 @@ html {
   background-color: black;
 }
 
+.markdown {
+  @apply font-robotoSlab;
+}
+
 .markdown h1,
 .markdown h2,
 .markdown h3,
@@ -31,12 +35,16 @@ html {
 .markdown ul li {
   @apply list-disc list-inside;
 }
-/* .markdown ul li::marker {
-  @apply text-orange;
-} */
+.markdown p code {
+  @apply text-100 font-roboto;
+}
 
 .markdown blockquote {
   @apply text-previewParagraphBold p-6 border-l-[4px] border-l-orange bg-200;
+}
+
+pre code {
+  @apply font-robotoMono  bg-orange;
 }
 
 .markdown .lightMode pre {

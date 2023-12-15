@@ -81,14 +81,14 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
         )}
       </div>
       <div
-        className={`p-4 w-full h-[calc(100vh_-_117px)]  ${
+        className={`px-5 py-4 w-full h-[calc(100vh_-_117px)]  ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
             : "bg-100 text-700"
         }`}
       >
         <div
-          className={`markdown max-w-[981px] px-2.5  ${
+          className={`markdown max-w-[981px] ${
             markdownEditorState.activatedMarkdownPart === "Markdown" &&
             "mx-auto"
           }`}

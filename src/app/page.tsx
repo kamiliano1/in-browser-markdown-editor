@@ -32,6 +32,7 @@ export default function Home() {
       }`}
     >
       <Navigation />
+
       <div className="relative h-[100vh]">
         <div
           className={`absolute top-0 left-0 pt-[56px] sm:pt-[72px] transition duration-500 w-full ${
