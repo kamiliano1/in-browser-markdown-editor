@@ -15,13 +15,17 @@ html {
 .markdown h3,
 .markdown h4,
 .markdown h5,
-.markdown h6,
 .markdown blockquote p {
   @apply text-700;
 }
 .markdown p,
 .markdown li {
   @apply text-previewParagraph;
+}
+
+.markdown ol,
+.markdown ul {
+  @apply ml-6;
 }
 
 .markdown ol li {
@@ -32,11 +36,15 @@ html {
   @apply list-decimal;
 }
 
+.markdown ul {
+  @apply marker:text-orange;
+}
+
 .markdown ul li {
-  @apply list-disc list-inside;
+  @apply list-disc ml-4 pl-1;
 }
 .markdown p code {
-  @apply text-100 font-roboto;
+  @apply text-100 font-robotoMono;
 }
 
 .markdown blockquote {
@@ -44,21 +52,20 @@ html {
 }
 
 pre code {
-  @apply font-robotoMono  bg-orange;
+  @apply font-robotoMono;
 }
 
 .markdown .lightMode pre {
   @apply p-6 bg-800 text-100;
 }
 .markdown pre {
-  @apply p-6 bg-200 text-700;
+  @apply p-6 bg-200 text-700 whitespace-pre-wrap;
 }
 .markdown .lightMode h1,
 .markdown .lightMode h2,
 .markdown .lightMode h3,
 .markdown .lightMode h4,
 .markdown .lightMode h5,
-.markdown .lightMode h6,
 .markdown .lightMode blockquote p {
   @apply text-100;
 }
@@ -86,5 +93,5 @@ pre code {
   @apply text-previewH5;
 }
 .markdown h6 {
-  @apply text-previewH6;
+  @apply text-previewH6 text-orange;
 }

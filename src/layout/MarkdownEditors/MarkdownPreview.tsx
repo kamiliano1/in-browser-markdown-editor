@@ -40,14 +40,14 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
   ]);
 
   return (
-    <div className="w-full">
+    <div className="w-full border-l-[1px] border-600 ">
       <div
-        className={`flex px-4 py-3 items-center ${
+        className={`flex px-4 py-3 items-center    ${
           !markdownEditorState.isLightMode ? "bg-900" : "bg-200"
         } justify-between`}
       >
         <h1
-          className={`text-headingS uppercase  ${
+          className={`text-headingS uppercase font-roboto  ${
             !markdownEditorState.isLightMode ? "text-400" : "text-500"
           }`}
         >
@@ -88,13 +88,15 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
         }`}
       >
         <div
-          className={`markdown max-w-[981px] ${
+          className={`markdown max-w-[981px]  ${
             markdownEditorState.activatedMarkdownPart === "Markdown" &&
             "mx-auto"
           }`}
         >
+          <span className="h-[100vh] bg-600 w-[3px]"></span>
+
           <Markdown
-            className={`flex flex-col gap-2 ${
+            className={`flex flex-col gap-5 pb-14  ${
               !markdownEditorState.isLightMode && "lightMode"
             }`}
           >

@@ -1,6 +1,6 @@
 import { MarkdownDataType, editorState } from "@/atoms/markdownAtom";
 import useWindowWith from "@/hooks/useWindowWidth";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiEye } from "react-icons/fi";
 import { useRecoilState } from "recoil";
 
@@ -9,6 +9,7 @@ type MarkdownEditorProps = {};
 const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
   const [markdownEditorState, setMarkdownEditorState] =
     useRecoilState(editorState);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const windowWidth = useWindowWith();
   const [activatedMarkdown, setActivatedMarkdown] = useState<MarkdownDataType>(
     markdownEditorState.data[1]
@@ -23,6 +24,11 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
         )[0]
       );
       setMarkdownEditorState((prev) => ({ ...prev, isReloaded: true }));
+    }
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "0px";
+      const scrollHeight = textAreaRef.current.scrollHeight;
+      textAreaRef.current.style.height = scrollHeight + "px";
     }
   }, [
     markdownEditorState.activeMarkdownId,
@@ -41,6 +47,11 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
     }));
   };
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = "0px";
+      const scrollHeight = textAreaRef.current.scrollHeight;
+      textAreaRef.current.style.height = scrollHeight + "px";
+    }
     const { name, value } = e.target;
     setActivatedMarkdown((prev) => ({ ...prev, [name]: value }));
     setIsCharacterUpdated(true);
@@ -66,7 +77,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
   ]);
   return (
     <div
-      className={`w-full sm:border-r-[1px] border-r-600 ${
+      className={`w-full  border-r-600 ${
         windowWidth > 640 &&
         markdownEditorState.activatedMarkdownPart === "Markdown" &&
         "hidden"
@@ -78,7 +89,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
         } justify-between`}
       >
         <h1
-          className={`text-headingS uppercase  ${
+          className={`text-headingS uppercase font-roboto   ${
             !markdownEditorState.isLightMode ? "text-400" : "text-500"
           }`}
         >
@@ -92,21 +103,22 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
           }`}
         />
       </div>
+
       <textarea
         onChange={onChange}
         name="content"
         id="content"
+        ref={textAreaRef}
         disabled={markdownEditorState.data.length ? false : true}
         value={
           markdownEditorState.data.length ? activatedMarkdown?.content : ""
         }
-        className={`p-4 w-full h-[calc(100vh_-_155px)] resize-none font-robotoSlab ${
+        className={`p-4 w-full resize-none font-robotoMono text-markdown ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
             : "bg-100 text-700"
         }`}
       ></textarea>
-      ;
     </div>
   );
 };

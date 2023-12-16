@@ -48,7 +48,7 @@ export default function Home() {
               )}
             </>
           ) : (
-            <div className="flex">
+            <div className="flex h-full">
               <MarkdownEditor />
               <MarkdownPreview />
             </div>
