@@ -88,20 +88,23 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
         }`}
       >
         <div
-          className={`markdown max-w-[981px]  ${
+          className={`markdown max-w-[981px] break-words  ${
             markdownEditorState.activatedMarkdownPart === "Markdown" &&
             "mx-auto"
           }`}
         >
           <span className="h-[100vh] bg-600 w-[3px]"></span>
-
-          <Markdown
-            className={`flex flex-col gap-5 pb-14  ${
-              !markdownEditorState.isLightMode && "lightMode"
-            }`}
-          >
-            {activatedMarkdownContent}
-          </Markdown>
+          {markdownEditorState.data.length ? (
+            <Markdown
+              className={`flex flex-col gap-5 pb-14  ${
+                !markdownEditorState.isLightMode && "lightMode"
+              }`}
+            >
+              {activatedMarkdownContent}
+            </Markdown>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
