@@ -2,9 +2,8 @@ import { editorState } from "@/atoms/markdownAtom";
 import useWindowWith from "@/hooks/useWindowWidth";
 import React, { useEffect, useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import Markdown, { ExtraProps } from "react-markdown";
 import { useRecoilState } from "recoil";
-import Markdown from "react-markdown";
-
 type MarkdownPreviewProps = {};
 
 const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
@@ -39,6 +38,28 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
     setMarkdownEditorState,
   ]);
 
+  const addToTOC = ({
+    children,
+    ...props
+  }: React.HTMLAttributes<HTMLHeadingElement> & ExtraProps) => {
+    const toc: {
+      level: number;
+      id: string;
+      title: string;
+    }[] = [];
+    const level = Number(props.node!.tagName.match(/h(\d)/)?.slice(1));
+    if (level && children && typeof children === "string") {
+      const id = children.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      toc.push({
+        level,
+        id,
+        title: children[0],
+      });
+      return React.createElement(props.node!.tagName, { id }, children);
+    } else {
+      return React.createElement(props.node!.tagName, props, children);
+    }
+  };
   return (
     <div className="w-full border-l-[1px] border-600 ">
       <div
@@ -96,6 +117,14 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
           <span className="h-[100vh] bg-600 w-[3px]"></span>
           {markdownEditorState.data.length ? (
             <Markdown
+              components={{
+                h1: addToTOC,
+                h2: addToTOC,
+                h3: addToTOC,
+                h4: addToTOC,
+                h5: addToTOC,
+                h6: addToTOC,
+              }}
               className={`flex flex-col gap-5 pb-14  ${
                 !markdownEditorState.isLightMode && "lightMode"
               }`}

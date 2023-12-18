@@ -7,7 +7,6 @@ export type EditorType = {
   isDeleteModalOpen: boolean;
   activatedMarkdownPart: ActivatedPartType;
   activeMarkdownId: string;
-  activeContent: string;
   inputMarkdownValue: string;
   isReloaded: boolean;
 };
@@ -26,7 +25,6 @@ const defaultEditorState: EditorType = {
   isDeleteModalOpen: false,
   activatedMarkdownPart: "Preview",
   activeMarkdownId: "",
-  activeContent: "",
   inputMarkdownValue: "",
   isReloaded: false,
 };

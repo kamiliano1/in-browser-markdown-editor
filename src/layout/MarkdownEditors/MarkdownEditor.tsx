@@ -53,6 +53,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
       textAreaRef.current.style.height = scrollHeight + "px";
     }
     const { name, value } = e.target;
+    console.log(value);
     setActivatedMarkdown((prev) => ({ ...prev, [name]: value }));
     setIsCharacterUpdated(true);
   };
@@ -113,7 +114,8 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
         value={
           markdownEditorState.data.length ? activatedMarkdown?.content : ""
         }
-        className={`p-4 w-full resize-none font-robotoMono text-markdown ${
+        className={`p-4 w-full resize-none font-robotoMono text-markdown 
+        min-h-[calc(100vh_-_127px)] ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
             : "bg-100 text-700"

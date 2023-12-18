@@ -6,7 +6,6 @@ import MarkdownPreview from "@/layout/MarkdownEditors/MarkdownPreview";
 import DeleteModal from "@/layout/Modal/DeleteModal/DeleteModal";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
-import Navbar from "../layout/Navbar/Navbar";
 import data from "./data/data.json";
 import Navigation from "@/layout/Navbar/Navigation";
 export type ActivatedPartType = "Markdown" | "Preview";
@@ -21,18 +20,35 @@ export default function Home() {
       data: data,
       activeMarkdownId: data[1].id,
       inputMarkdownValue: data[1].name,
-      activeContent: data[1].content,
     }));
   }, [setMarkdownEditorState]);
 
   return (
     <main
-      className={`overflow-x-hidden ${
-        !markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
-      }`}
+      className={`overflow-x-hidden grid grid-cols-[250px,_100vw] grid-rows-[56px,1fr] sm:grid-rows-[72px,1fr] duration-500 ${
+        !markdownEditorState.isSidebarOpen && "translate-x-[-250px]"
+      } ${!markdownEditorState.isLightMode ? "bg-1000" : "bg-100"}`}
     >
       <Navigation />
 
+      <div className="row-start-2 col-start-2">
+        {windowWidth < 640 ? (
+          <>
+            {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
+              <MarkdownPreview />
+            ) : (
+              <MarkdownEditor />
+            )}
+          </>
+        ) : (
+          <div className="flex h-full">
+            <MarkdownEditor />
+            <MarkdownPreview />
+          </div>
+        )}
+        <DeleteModal />
+      </div>
+      {/* 
       <div className="relative h-[100vh]">
         <div
           className={`absolute top-0 left-0 pt-[56px] sm:pt-[72px] transition duration-500 w-full ${
@@ -55,7 +71,7 @@ export default function Home() {
           )}
         </div>
         <DeleteModal />
-      </div>
+      </div> */}
     </main>
   );
 }
