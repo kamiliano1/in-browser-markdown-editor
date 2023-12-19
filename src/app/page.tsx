@@ -24,37 +24,15 @@ export default function Home() {
   }, [setMarkdownEditorState]);
 
   return (
-    <main
-      className={`overflow-x-hidden grid grid-cols-[250px,_100vw] grid-rows-[56px,1fr] sm:grid-rows-[72px,1fr] duration-500 ${
-        !markdownEditorState.isSidebarOpen && "translate-x-[-250px]"
-      } ${!markdownEditorState.isLightMode ? "bg-1000" : "bg-100"}`}
-    >
-      <Navigation />
+    <main className="">
+      <div
+        className={`grid grid-cols-[250px_,_auto] grid-rows-[56px_,_auto] sm:grid-rows-[72px_,_auto] duration-500 bg-orange ${
+          !markdownEditorState.isSidebarOpen && "translate-x-[-250px]"
+        } `}
+      >
+        <Navigation />
 
-      <div className="row-start-2 col-start-2">
-        {windowWidth < 640 ? (
-          <>
-            {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
-              <MarkdownPreview />
-            ) : (
-              <MarkdownEditor />
-            )}
-          </>
-        ) : (
-          <div className="flex h-full">
-            <MarkdownEditor />
-            <MarkdownPreview />
-          </div>
-        )}
-        <DeleteModal />
-      </div>
-      {/* 
-      <div className="relative h-[100vh]">
-        <div
-          className={`absolute top-0 left-0 pt-[56px] sm:pt-[72px] transition duration-500 w-full ${
-            markdownEditorState.isSidebarOpen && "translate-x-[250px]"
-          }`}
-        >
+        <div className={`row-start-2 col-start-2`}>
           {windowWidth < 640 ? (
             <>
               {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
@@ -69,9 +47,33 @@ export default function Home() {
               <MarkdownPreview />
             </div>
           )}
+          <DeleteModal />
         </div>
-        <DeleteModal />
-      </div> */}
+        {/* 
+        <div className="relative h-[100vh]">
+          <div
+            className={`absolute top-0 left-0 pt-[56px] sm:pt-[72px] transition duration-500 w-full ${
+              markdownEditorState.isSidebarOpen && "translate-x-[250px]"
+            }`}
+          >
+            {windowWidth < 640 ? (
+              <>
+                {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
+                  <MarkdownPreview />
+                ) : (
+                  <MarkdownEditor />
+                )}
+              </>
+            ) : (
+              <div className="flex h-full">
+                <MarkdownEditor />
+                <MarkdownPreview />
+              </div>
+            )}
+          </div>
+          <DeleteModal />
+        </div> */}
+      </div>
     </main>
   );
 }

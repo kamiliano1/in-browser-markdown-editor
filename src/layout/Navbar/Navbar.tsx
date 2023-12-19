@@ -26,7 +26,7 @@ const Navbar: React.FC<NavbarProps> = () => {
   };
 
   return (
-    <NavigationMenu.List className="flex items-center pr-2 sm:pr-4 justify-between h-[56px] sm:h-[72px] bg-800">
+    <NavigationMenu.List className="flex items-center pr-2 sm:pr-4 justify-between  bg-800">
       <NavigationMenu.Item className="flex items-center justify-center bg-700 h-[56px] sm:h-[72px] aspect-square mr-6">
         <NavigationMenu.Trigger
           title="toggle sidebar"

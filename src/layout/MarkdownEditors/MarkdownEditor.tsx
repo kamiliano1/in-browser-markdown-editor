@@ -78,7 +78,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
   ]);
   return (
     <div
-      className={`w-full  border-r-600 ${
+      className={`w-full border-r-600 ${
         windowWidth > 640 &&
         markdownEditorState.activatedMarkdownPart === "Markdown" &&
         "hidden"
@@ -115,7 +115,8 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
           markdownEditorState.data.length ? activatedMarkdown?.content : ""
         }
         className={`p-4 w-full resize-none font-robotoMono text-markdown 
-        min-h-[calc(100vh_-_127px)] ${
+        min-h-[calc(100vh_-_127px)] 
+        ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
             : "bg-100 text-700"

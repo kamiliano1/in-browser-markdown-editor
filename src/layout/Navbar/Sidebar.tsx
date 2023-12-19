@@ -43,7 +43,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
     }));
   };
   return (
-    <NavigationMenu.List className="w-[250px] h-[100vh] bg-900 px-6 py-7 flex flex-col">
+    <NavigationMenu.List className="w-[250px] fixed h-[100vh] bg-900 px-6 py-7 flex flex-col">
       <Image src={logo} alt="web logo" className="lg:hidden" />
       <h3 className="text-headingS uppercase text-500 py-7 lg:pt-0 font-roboto">
         My Documents

@@ -61,19 +61,15 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
     }
   };
   return (
-    <div className="w-full border-l-[1px] border-600 ">
+    <div className="w-full border-l-[1px] border-600">
       <div
-        className={`flex px-4 py-3 items-center    ${
-          !markdownEditorState.isLightMode ? "bg-900" : "bg-200"
-        } justify-between`}
+        className={`flex px-4 py-3 items-center justify-between ${
+          !markdownEditorState.isLightMode
+            ? "bg-900 text-400"
+            : "bg-200 text-500"
+        }`}
       >
-        <h1
-          className={`text-headingS uppercase font-roboto  ${
-            !markdownEditorState.isLightMode ? "text-400" : "text-500"
-          }`}
-        >
-          Preview
-        </h1>
+        <h1 className={`text-headingS uppercase font-roboto `}>Preview</h1>
         {windowWidth > 640 ? (
           <>
             {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
