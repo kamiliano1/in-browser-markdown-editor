@@ -22,7 +22,7 @@ const MarkdownItem: React.FC<MarkdownItemProps> = ({ data }) => {
   };
   return (
     <NavigationMenu.Item
-      className="w-full font-roboto mb-6 hover:text-orange"
+      className="w-full font-roboto mb-6 hover:text-orange text-100"
       onClick={activateMarkdown}
     >
       <NavigationMenu.Trigger

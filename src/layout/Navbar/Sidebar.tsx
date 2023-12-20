@@ -60,9 +60,11 @@ const Sidebar: React.FC<SidebarProps> = () => {
           + New Document
         </NavigationMenu.Trigger>
       </NavigationMenu.Item>
-      {markdownEditorState.data?.map((item) => (
-        <MarkdownItem key={item.id} data={item} />
-      ))}
+      <div className="max-h-[calc(100vh_-_230px)] overflow-y-auto">
+        {markdownEditorState.data?.map((item) => (
+          <MarkdownItem key={item.id} data={item} />
+        ))}
+      </div>
       <NavigationMenu.Item className="mt-auto">
         <ThemeSwitch />
       </NavigationMenu.Item>

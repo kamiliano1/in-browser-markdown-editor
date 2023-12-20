@@ -24,11 +24,13 @@ export default function Home() {
   }, [setMarkdownEditorState]);
 
   return (
-    <main className="">
+    <main className="overflow-hidden bg-orange">
       <div
-        className={`grid grid-cols-[250px_,_auto] grid-rows-[56px_,_auto] sm:grid-rows-[72px_,_auto] duration-500 bg-orange ${
-          !markdownEditorState.isSidebarOpen && "translate-x-[-250px]"
-        } `}
+        className={`grid grid-cols-[250px_,_auto] overflow-y-auto ${
+          !markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
+        } duration-500 w-[calc(100%_+_250px)] ${
+          markdownEditorState.isSidebarOpen && "translate-x-[-250px]"
+        }`}
       >
         <Navigation />
 
@@ -49,30 +51,6 @@ export default function Home() {
           )}
           <DeleteModal />
         </div>
-        {/* 
-        <div className="relative h-[100vh]">
-          <div
-            className={`absolute top-0 left-0 pt-[56px] sm:pt-[72px] transition duration-500 w-full ${
-              markdownEditorState.isSidebarOpen && "translate-x-[250px]"
-            }`}
-          >
-            {windowWidth < 640 ? (
-              <>
-                {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
-                  <MarkdownPreview />
-                ) : (
-                  <MarkdownEditor />
-                )}
-              </>
-            ) : (
-              <div className="flex h-full">
-                <MarkdownEditor />
-                <MarkdownPreview />
-              </div>
-            )}
-          </div>
-          <DeleteModal />
-        </div> */}
       </div>
     </main>
   );

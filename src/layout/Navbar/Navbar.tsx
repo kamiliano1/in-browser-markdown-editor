@@ -26,7 +26,9 @@ const Navbar: React.FC<NavbarProps> = () => {
   };
 
   return (
-    <NavigationMenu.List className="flex items-center pr-2 sm:pr-4 justify-between  bg-800">
+    <NavigationMenu.List
+      className={`flex items-center pr-2 sm:pr-4 justify-between bg-800`}
+    >
       <NavigationMenu.Item className="flex items-center justify-center bg-700 h-[56px] sm:h-[72px] aspect-square mr-6">
         <NavigationMenu.Trigger
           title="toggle sidebar"
@@ -76,7 +78,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           disabled={markdownEditorState.data.length ? false : true}
           onClick={saveChanges}
           className="bg-orange enabled:hover:bg-orangeHover 
-             text-100 rounded text-headingM font-roboto h-10 w-10 sm:w-auto sm:px-4 flex justify-center items-center"
+               text-100 rounded text-headingM font-roboto h-10 w-10 sm:w-auto sm:px-4 flex justify-center items-center"
         >
           <LuSave className="text-[1.3rem] sm:mr-2" />
           {windowWidth >= 640 && "Save changes"}
