@@ -38,17 +38,13 @@ const Navbar: React.FC<NavbarProps> = () => {
           <HamburgerIcon />
         </NavigationMenu.Trigger>
       </NavigationMenu.Item>
-      <Image src={logo} alt="web logo" className="hidden lg:block" />
-      <span className="hidden lg:block ml-7 mr-6 h-10 w-[1px] bg-600"></span>
+
+      <NavigationMenu.Item className="hidden lg:block">
+        <Image src={logo} alt="web logo" />
+      </NavigationMenu.Item>
+      <NavigationMenu.Item className="hidden lg:block ml-7 mr-6 h-10 w-[1px] bg-600"></NavigationMenu.Item>
       <NavigationMenu.Item className="mr-auto">
-        <NavigationMenu.Trigger
-          disabled={markdownEditorState.data.length ? false : true}
-          title="change markdown name"
-          onPointerMove={(e) => e.preventDefault()}
-          onPointerLeave={(e) => e.preventDefault()}
-        >
-          <InputText />
-        </NavigationMenu.Trigger>
+        <InputText />
       </NavigationMenu.Item>
       <NavigationMenu.Item className="mr-6">
         <NavigationMenu.Trigger

@@ -43,32 +43,39 @@ const Sidebar: React.FC<SidebarProps> = () => {
     }));
   };
   return (
-    <NavigationMenu.List className="w-[250px] fixed h-[100vh] bg-900 px-6 py-7 flex flex-col">
-      <Image src={logo} alt="web logo" className="lg:hidden" />
-      <h3 className="text-headingS uppercase text-500 py-7 lg:pt-0 font-roboto">
-        My Documents
-      </h3>
-      <NavigationMenu.Item>
-        <NavigationMenu.Trigger
-          onPointerMove={(e) => e.preventDefault()}
-          onPointerLeave={(e) => e.preventDefault()}
-          onClick={addNewMarkdown}
-          title="new document"
-          className="bg-orange hover:bg-orangeHover w-full py-2.5 mb-6
+    <>
+      <NavigationMenu.List>
+        <NavigationMenu.Item>
+          <Image src={logo} alt="web logo" className="lg:hidden" />
+          <h3 className="text-headingS uppercase text-500 py-7 lg:pt-0 font-roboto">
+            My Documents
+          </h3>
+        </NavigationMenu.Item>
+        <NavigationMenu.Item>
+          <NavigationMenu.Trigger
+            onPointerMove={(e) => e.preventDefault()}
+            onPointerLeave={(e) => e.preventDefault()}
+            onClick={addNewMarkdown}
+            title="new document"
+            type="button"
+            className="bg-orange hover:bg-orangeHover w-full py-2.5 mb-6
          text-100 rounded text-headingM font-roboto flex justify-center items-center"
-        >
-          + New Document
-        </NavigationMenu.Trigger>
-      </NavigationMenu.Item>
-      <div className="max-h-[calc(100vh_-_230px)] overflow-y-auto">
+          >
+            + New Document
+          </NavigationMenu.Trigger>
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+      <NavigationMenu.List className="h-[calc(100vh_-_230px)] overflow-y-auto">
         {markdownEditorState.data?.map((item) => (
           <MarkdownItem key={item.id} data={item} />
         ))}
-      </div>
-      <NavigationMenu.Item className="mt-auto">
-        <ThemeSwitch />
-      </NavigationMenu.Item>
-    </NavigationMenu.List>
+      </NavigationMenu.List>
+      <NavigationMenu.List>
+        <NavigationMenu.Item>
+          <ThemeSwitch />
+        </NavigationMenu.Item>
+      </NavigationMenu.List>
+    </>
   );
 };
 export default Sidebar;
