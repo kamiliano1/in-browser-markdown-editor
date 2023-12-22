@@ -56,6 +56,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
             onPointerMove={(e) => e.preventDefault()}
             onPointerLeave={(e) => e.preventDefault()}
             onClick={addNewMarkdown}
+            aria-controls={undefined}
             title="new document"
             type="button"
             className="bg-orange hover:bg-orangeHover w-full py-2.5 mb-6

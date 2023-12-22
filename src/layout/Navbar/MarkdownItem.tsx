@@ -31,6 +31,7 @@ const MarkdownItem: React.FC<MarkdownItemProps> = ({ data }) => {
         onClick={(e) => e.preventDefault()}
         title={name}
         type="button"
+        aria-controls={undefined}
         className="grid grid-rows-[min-content,_auto] grid-cols-[16px,_auto] gap-x-4 items-center"
       >
         <p className="sr-only">activate markdown document {name}</p>

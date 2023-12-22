@@ -109,6 +109,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
         onChange={onChange}
         name="content"
         id="content"
+        aria-label="markdown Editor"
         title="markdown Editor"
         ref={textAreaRef}
         disabled={markdownEditorState.data.length ? false : true}

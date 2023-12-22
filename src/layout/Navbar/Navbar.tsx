@@ -32,6 +32,7 @@ const Navbar: React.FC<NavbarProps> = () => {
       <NavigationMenu.Item className="flex items-center justify-center bg-700 h-[56px] sm:h-[72px] aspect-square mr-6">
         <NavigationMenu.Trigger
           title="toggle sidebar"
+          aria-controls={undefined}
           onPointerMove={(e) => e.preventDefault()}
           onPointerLeave={(e) => e.preventDefault()}
         >
@@ -40,7 +41,7 @@ const Navbar: React.FC<NavbarProps> = () => {
       </NavigationMenu.Item>
 
       <NavigationMenu.Item className="hidden lg:block">
-        <Image src={logo} alt="web logo" />
+        <Image src={logo} alt="web logo" loading={undefined} />
       </NavigationMenu.Item>
       <NavigationMenu.Item className="hidden lg:block ml-7 mr-6 h-10 w-[1px] bg-600"></NavigationMenu.Item>
       <NavigationMenu.Item className="mr-auto">

@@ -30,8 +30,7 @@ const InputText = ({}: ComponentProps<"input">): JSX.Element => {
   return (
     <div className="flex items-center bg-800 py-3">
       <CiFileOn
-        className={`mr-4 text-100 `}
-        htmlFor="inputMarkdownValue"
+        className={`mr-4 text-100`}
         onClick={() => focusRef.current?.focus()}
       />
       <div className="flex flex-col items-start">
