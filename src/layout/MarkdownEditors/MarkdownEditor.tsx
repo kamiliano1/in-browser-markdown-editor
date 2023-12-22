@@ -78,7 +78,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
   ]);
   return (
     <div
-      className={`w-full border-r-600 ${
+      className={`w-full ${
         windowWidth > 640 &&
         markdownEditorState.activatedMarkdownPart === "Markdown" &&
         "hidden"

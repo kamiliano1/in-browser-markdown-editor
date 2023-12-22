@@ -24,17 +24,18 @@ export default function Home() {
   }, [setMarkdownEditorState]);
 
   return (
-    <main className="overflow-hidden bg-orange">
+    <main className="bg-orange overflow-x-hidden overflow-y-auto">
       <div
-        className={`grid grid-cols-[250px_,_auto] overflow-y-auto ${
-          !markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
-        } duration-500 w-[calc(100%_+_250px)] ${
+        className={`grid grid-cols-[250px_,_auto] overflow-auto grid-rows-[56px_,_calc(100vh_-_56px)] sm:grid-rows-[72px_,_calc(100vh_-_72px)] 
+      ${
+        !markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
+      } duration-500 w-[calc(100%_+_250px)] ${
           markdownEditorState.isSidebarOpen && "translate-x-[-250px]"
         }`}
       >
         <Navigation />
 
-        <div className={`row-start-2 col-start-2`}>
+        <div className={`row-start-2 col-start-2 sm:h-[calc(100vh_-_127px)`}>
           {windowWidth < 640 ? (
             <>
               {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
@@ -44,8 +45,9 @@ export default function Home() {
               )}
             </>
           ) : (
-            <div className="flex h-full">
+            <div className="flex">
               <MarkdownEditor />
+              <span className="w-[1px] bg-600"></span>
               <MarkdownPreview />
             </div>
           )}

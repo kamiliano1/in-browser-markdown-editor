@@ -69,7 +69,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
             : "bg-200 text-500"
         }`}
       >
-        <h1 className={`text-headingS uppercase font-roboto `}>Preview</h1>
+        <h1 className={`text-headingS uppercase font-roboto`}>Preview</h1>
         {windowWidth > 640 ? (
           <>
             {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
@@ -98,14 +98,14 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
         )}
       </div>
       <div
-        className={`px-5 py-4 w-full h-[calc(100vh_-_117px)]  ${
+        className={`px-5 py-4 w-full sh-[calc(100vh_-_117px)] ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
             : "bg-100 text-700"
         }`}
       >
         <div
-          className={`markdown max-w-[981px] break-words  ${
+          className={`markdown max-w-[981px] break-words ${
             markdownEditorState.activatedMarkdownPart === "Markdown" &&
             "mx-auto"
           }`}
@@ -121,7 +121,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
                 h5: addToTOC,
                 h6: addToTOC,
               }}
-              className={`flex flex-col gap-5 pb-14  ${
+              className={`flex flex-col gap-5 pb-14 ${
                 !markdownEditorState.isLightMode && "lightMode"
               }`}
             >
