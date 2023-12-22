@@ -10,7 +10,7 @@ const Navigation: React.FC<NavigationProps> = () => {
     <>
       <NavigationMenu.Root
         orientation="vertical"
-        className="col-start-1 row-start-1 row-span-2 w-[250px] fixed h-[100vh] bg-900 px-6 py-7 flex flex-col "
+        className="col-start-1 row-start-1 row-span-2 w-[250px] fixed h-[100vh] bg-900 px-6 py-7 flex flex-col"
         aria-label="sidebar"
       >
         <Sidebar />
