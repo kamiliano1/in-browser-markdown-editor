@@ -34,10 +34,10 @@ const MarkdownItem: React.FC<MarkdownItemProps> = ({ data }) => {
         aria-controls={undefined}
         className="grid grid-rows-[min-content,_auto] grid-cols-[16px,_auto] gap-x-4 items-center"
       >
-        <p className="sr-only">activate markdown document {name}</p>
+        <span className="sr-only">activated markdown document {name}</span>
         <CiFileOn className="row-span-2 text-[1rem] text-100" />
-        <p className="text-start text-bodyM text-500 mb-1">{createdAt}</p>
-        <p className="text-headingM truncate">{name}</p>
+        <span className="text-start text-bodyM text-500 mb-1">{createdAt}</span>
+        <span className="text-headingM truncate">{name}</span>
       </NavigationMenu.Trigger>
     </NavigationMenu.Item>
   );

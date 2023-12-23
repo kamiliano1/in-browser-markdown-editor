@@ -23,9 +23,11 @@ html {
   @apply text-previewParagraph;
 }
 
-.markdown ol,
-.markdown ul {
+.markdown ol {
   @apply ml-8;
+}
+.markdown ul {
+  @apply ml-12;
 }
 
 .markdown ol li {

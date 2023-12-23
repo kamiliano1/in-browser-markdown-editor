@@ -32,6 +32,7 @@ const Navbar: React.FC<NavbarProps> = () => {
       <NavigationMenu.Item className="flex items-center justify-center bg-700 h-[56px] sm:h-[72px] aspect-square mr-6">
         <NavigationMenu.Trigger
           title="toggle sidebar"
+          type="button"
           aria-controls={undefined}
           onPointerMove={(e) => e.preventDefault()}
           onPointerLeave={(e) => e.preventDefault()}
@@ -61,7 +62,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           }
         >
           <FaRegTrashAlt
-            className={`text-500 text-5 ml-4   ${
+            className={`text-500 text-previewH4 ${
               markdownEditorState.data.length && "hover:text-orange"
             }`}
           />
@@ -74,7 +75,7 @@ const Navbar: React.FC<NavbarProps> = () => {
           title="save changes"
           disabled={markdownEditorState.data.length ? false : true}
           onClick={saveChanges}
-          className="bg-orange enabled:hover:bg-orangeHover 
+          className="bg-[#b75236] enabled:hover:bg-orangeHover 
                text-100 rounded text-headingM font-roboto h-10 w-10 sm:w-auto sm:px-4 flex justify-center items-center"
         >
           <LuSave className="text-[1.3rem] sm:mr-2" />

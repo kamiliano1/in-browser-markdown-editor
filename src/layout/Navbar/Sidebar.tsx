@@ -59,7 +59,7 @@ const Sidebar: React.FC<SidebarProps> = () => {
             aria-controls={undefined}
             title="new document"
             type="button"
-            className="bg-orange hover:bg-orangeHover w-full py-2.5 mb-6
+            className="bg-[#b75236] hover:bg-orangeHover w-full py-2.5 mb-6
          text-100 rounded text-headingM font-roboto flex justify-center items-center"
           >
             + New Document

@@ -90,7 +90,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
         } justify-between`}
       >
         <h1
-          className={`text-headingS uppercase font-roboto   ${
+          className={`text-headingS uppercase font-roboto ${
             !markdownEditorState.isLightMode ? "text-400" : "text-500"
           }`}
         >
@@ -116,7 +116,7 @@ const MarkdownEditor: React.FC<MarkdownEditorProps> = ({}) => {
         value={
           markdownEditorState.data.length ? activatedMarkdown?.content : ""
         }
-        className={`p-4 w-full resize-none font-robotoMono text-markdown 
+        className={`px-4 py-2 w-full resize-none font-robotoMono text-markdown 
         min-h-[calc(100vh_-_127px)] 
         ${
           !markdownEditorState.isLightMode

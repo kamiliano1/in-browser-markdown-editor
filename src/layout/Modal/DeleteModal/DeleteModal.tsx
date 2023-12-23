@@ -47,7 +47,7 @@ const DeleteModal: React.FC<DeleteModalProps> = () => {
             Delete this document?
           </Dialog.Title>
           <Dialog.Description
-            className={`text-previewParagraph my-4  font-robotoSlab ${
+            className={`text-previewParagraph my-4 font-robotoSlab ${
               markdownEditorState.isLightMode ? "text-500" : "text-400"
             }`}
           >

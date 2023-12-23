@@ -13,7 +13,7 @@ const Button = ({
   return (
     <button
       {...rest}
-      className={` ${cssClassName} bg-orange hover:bg-orangeHover 
+      className={` ${cssClassName} bg-[#b75236] hover:bg-orangeHover 
        text-100 rounded text-headingM font-roboto`}
     >
       {children}
