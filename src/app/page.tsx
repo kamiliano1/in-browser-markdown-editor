@@ -52,9 +52,6 @@ export default function Home() {
             </div>
           )}
           <DeleteModal />
-
-          <h1 className="bg-[#b75236] text-100">AAAAA</h1>
-          <h1 className="bg-orange text-100">AAAAA</h1>
         </div>
       </div>
     </main>
