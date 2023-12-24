@@ -16,7 +16,7 @@ html {
 .markdown h4,
 .markdown h5,
 .markdown blockquote p {
-  @apply text-700 text-previewParagraphBold;
+  @apply text-700;
 }
 .markdown p,
 .markdown li {
@@ -52,9 +52,11 @@ html {
 }
 
 .markdown blockquote {
-  @apply text-previewParagraphBold p-6 border-l-[4px] border-l-orange bg-200;
+  @apply p-6 border-l-[4px] border-l-orange bg-200;
 }
-
+.markdown blockquote p {
+  @apply text-previewParagraphBold;
+}
 pre code {
   @apply font-robotoMono;
 }
