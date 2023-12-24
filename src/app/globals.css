@@ -22,7 +22,9 @@ html {
 .markdown li {
   @apply text-previewParagraph;
 }
-
+.markdown li:not(:last-child) {
+  @apply mb-1;
+}
 .markdown ol {
   @apply ml-8;
 }
