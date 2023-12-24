@@ -16,7 +16,7 @@ html {
 .markdown h4,
 .markdown h5,
 .markdown blockquote p {
-  @apply text-700;
+  @apply text-700 text-previewParagraphBold;
 }
 .markdown p,
 .markdown li {
