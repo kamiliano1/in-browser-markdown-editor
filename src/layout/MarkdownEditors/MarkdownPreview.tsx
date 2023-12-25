@@ -61,7 +61,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
     }
   };
   return (
-    <div className="w-full border-l-[1px] border-600">
+    <div className="w-full">
       <div
         className={`flex px-4 py-3 items-center justify-between ${
           !markdownEditorState.isLightMode
@@ -98,7 +98,7 @@ const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({}) => {
         )}
       </div>
       <div
-        className={`px-5 py-4 w-full sh-[calc(100vh_-_117px)] ${
+        className={`px-5 py-4 w-full min-h-[calc(100vh_-_117px)] ${
           !markdownEditorState.isLightMode
             ? "bg-1000 text-400"
             : "bg-100 text-700"

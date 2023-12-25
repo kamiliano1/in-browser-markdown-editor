@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Roboto, Roboto_Slab, Roboto_Mono, Rubik } from "next/font/google";
+import { Roboto, Roboto_Slab, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import RecoilProvider from "./RecoilProvider";
 

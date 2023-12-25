@@ -119,10 +119,20 @@ const config: Config = {
           },
           to: { opacity: "1", transform: "translate(-50%, -50%) scale(1)" },
         },
+        sidebarOpen: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-250px)" },
+        },
+        sidebarClose: {
+          from: { transform: "translateX(-250px)" },
+          to: { transform: "translateX(0)" },
+        },
       },
       animation: {
         overlayShow: "overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
         contentShow: "contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)",
+        sidebarOpen: "sidebarOpen 700ms cubic-bezier(0.16, 1, 0.3, 1)",
+        sidebarClose: "sidebarClose 700ms cubic-bezier(0.16, 1, 0.3, 1)",
       },
     },
   },

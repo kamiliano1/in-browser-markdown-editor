@@ -29,12 +29,13 @@ export default function Home() {
         className={`grid grid-cols-[250px_,_auto] overflow-auto grid-rows-[56px_,_calc(100vh_-_56px)] sm:grid-rows-[72px_,_calc(100vh_-_72px)] 
       ${
         !markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
-      } duration-500 w-[calc(100%_+_250px)] ${
-          markdownEditorState.isSidebarOpen && "translate-x-[-250px]"
+      } w-[calc(100%_+_250px)] ${
+          markdownEditorState.isSidebarOpen
+            ? "translate-x-[-250px] animate-sidebarOpen"
+            : "animate-sidebarClose"
         }`}
       >
         <Navigation />
-
         <div className={`row-start-2 col-start-2 sm:h-[calc(100vh_-_127px)`}>
           {windowWidth < 640 ? (
             <>
@@ -47,7 +48,9 @@ export default function Home() {
           ) : (
             <div className="flex">
               <MarkdownEditor />
-              <span className="w-[1px] bg-600"></span>
+              {markdownEditorState.activatedMarkdownPart === "Preview" && (
+                <span className="w-[2px] bg-600"></span>
+              )}
               <MarkdownPreview />
             </div>
           )}

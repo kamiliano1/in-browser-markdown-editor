@@ -29,11 +29,11 @@ html {
   @apply ml-8;
 }
 .markdown ul {
-  @apply ml-12;
+  @apply ml-10;
 }
 
 .markdown ol li {
-  @apply ml-4 pl-1;
+  @apply ml-2 pl-1;
 }
 
 .markdown ol {
@@ -48,6 +48,9 @@ html {
   @apply list-disc;
 }
 .markdown p code {
+  @apply text-500 font-robotoMono;
+}
+.markdown .lightMode p code {
   @apply text-100 font-robotoMono;
 }
 

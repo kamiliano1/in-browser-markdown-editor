@@ -20,18 +20,18 @@ const HamburgerIcon: React.FC<HamburgerIconProps> = () => {
       }
     >
       <span
-        className={`w-full h-[1.56px] bg-300 origin-top-left rounded-xl transition duration-500 ${
+        className={`w-full h-[1.56px] sm:h-[2px] bg-300 origin-top-left rounded-xl transition duration-500 ${
           !markdownEditorState.isSidebarOpen && "rotate-45"
         }`}
       ></span>
       <span
-        className={`w-full h-[1.56px] bg-300 rounded-xl transition duration-500 ${
+        className={`w-full h-[1.56px] sm:h-[2px] bg-300 rounded-xl transition duration-500 ${
           !markdownEditorState.isSidebarOpen && "opacity-0"
         }
 `}
       ></span>
       <span
-        className={`w-full h-[1.56px] bg-300 origin-bottom-left rounded-xl transition duration-500 ${
+        className={`w-full h-[1.56px] sm:h-[2px] bg-300 origin-bottom-left rounded-xl transition duration-500 ${
           !markdownEditorState.isSidebarOpen && "rotate-[-45deg]"
         }
 `}
