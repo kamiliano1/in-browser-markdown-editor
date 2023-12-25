@@ -48,7 +48,7 @@ const Navbar: React.FC<NavbarProps> = () => {
       <NavigationMenu.Item className="mr-auto">
         <InputText />
       </NavigationMenu.Item>
-      <NavigationMenu.Item className="mr-6">
+      <NavigationMenu.Item className="mr-6 flex items-center ml-2">
         <NavigationMenu.Trigger
           onPointerMove={(e) => e.preventDefault()}
           onPointerLeave={(e) => e.preventDefault()}

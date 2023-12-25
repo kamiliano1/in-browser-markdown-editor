@@ -28,7 +28,7 @@ const InputText = ({}: ComponentProps<"input">): JSX.Element => {
     }
   };
   return (
-    <div className="flex items-center bg-800 py-3">
+    <div className="flex items-center bg-800 py-3 ">
       <CiFileOn
         className={`mr-4 text-100 text-previewH4`}
         onClick={() => focusRef.current?.focus()}
@@ -48,7 +48,7 @@ const InputText = ({}: ComponentProps<"input">): JSX.Element => {
           aria-label="markdown file name"
           disabled={markdownEditorState.data.length ? false : true}
           value={markdownEditorState.inputMarkdownValue}
-          className="text-headingM bg-800 text-100 border-b-[1px] border-800 enabled:hover:border-100 focus:border-100 focus:outline-none pb-1 caret-orange w-full"
+          className="text-headingM bg-800 text-100 border-b-[1px] border-800 enabled:hover:border-100 focus:border-100 focus:outline-none pb-1 caret-orange w-[120px] sm:w-full"
           name="inputMarkdownValue"
           id="inputMarkdownValue"
         />
