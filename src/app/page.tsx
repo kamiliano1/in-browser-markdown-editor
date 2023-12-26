@@ -30,7 +30,7 @@ export default function Home() {
       ${
         !markdownEditorState.isLightMode ? "bg-1000" : "bg-100"
       } w-[calc(100%_+_250px)] ${
-          markdownEditorState.isSidebarOpen
+          !markdownEditorState.isSidebarOpen
             ? "translate-x-[-250px] animate-sidebarOpen"
             : "animate-sidebarClose"
         }`}
@@ -40,9 +40,9 @@ export default function Home() {
           {windowWidth < 640 ? (
             <>
               {markdownEditorState.activatedMarkdownPart === "Markdown" ? (
-                <MarkdownPreview />
-              ) : (
                 <MarkdownEditor />
+              ) : (
+                <MarkdownPreview />
               )}
             </>
           ) : (

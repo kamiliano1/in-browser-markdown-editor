@@ -21,7 +21,7 @@ export type MarkdownDataType = {
 const defaultEditorState: EditorType = {
   data: [{ createdAt: "", name: "", content: "", id: "" }],
   isLightMode: false,
-  isSidebarOpen: true,
+  isSidebarOpen: false,
   isDeleteModalOpen: false,
   activatedMarkdownPart: "Preview",
   activeMarkdownId: "",

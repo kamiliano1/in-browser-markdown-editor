@@ -18,6 +18,7 @@ const MarkdownItem: React.FC<MarkdownItemProps> = ({ data }) => {
       activeMarkdownId: id,
       inputMarkdownValue: activatedMarkdownName(markdownEditorState, id),
       isReloaded: false,
+      isSidebarOpen: false,
     }));
   };
   return (
